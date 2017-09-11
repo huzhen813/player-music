@@ -1,0 +1,365 @@
+.music-container{
+    position: relative;
+    top: 30px;
+    width: 809px;
+    height: 556.2px;
+    margin: 0 auto;
+    border-radius: 20px;
+    border-right-color: rgb(92,182,122);
+    border-right-style: solid;
+    border-right-width: 1px;
+}
+.player-heard {
+    position: relative;;
+    top: 0%;
+    width: 809px;
+    height: 60px;
+    background-image: url(background.jpg);
+    background-size: cover;
+    -webkit-filter: blur(0.1px);
+            filter: blur(0.1px);
+    opacity: 0.9;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    /*background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1)), url(111.jpg);*/
+}
+.list-search {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 20px;
+    border-radius: 15px;
+    text-align: center;
+    margin-top: -10px;
+    margin-left: -150px;
+}
+tbody {
+    position: absolute;
+    top: 29px;
+}
+thead {
+    position: relative;
+}
+.list-title {
+    overflow: hidden;
+    left: -4%;
+    position: absolute;
+    width: 195px;
+    height: 30px;
+}
+.list-artist {
+    overflow: hidden;
+    left: 31%;
+    position: absolute;
+    width: 195px;
+    height: 30px;
+}
+.list-album {
+    overflow: hidden;
+    position: absolute;
+    right: 115px;
+}
+.music-plate {
+    position: absolute;
+    top: 11%;
+    right:0%;
+    width: 200px;
+    height: 396px;
+}
+.plate-past {
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    width: 160px;
+    height: 160px;
+}
+.plate-now {
+    position: absolute;
+    top: 30%;
+    right: 0%;
+    width: 160px;
+    height: 160px;
+    /*border:2px solid red;*/
+}
+.plate-next {
+    position: absolute;
+    bottom: 0%;
+    right: 0%;
+    width: 160px;
+    height: 160px;
+    /*border:2px solid red;*/
+}
+.play-list{
+    position: absolute;
+    top: 60px;
+    left:0%;
+    width: 650px;
+    height: 395px;
+    margin: 0 auto;
+    /*border:1px solid #9e9e9e;*/
+    border-left: 2px solid rgb(92,182,122);
+    /*background-color: white;*/
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.music-manipulate{
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    width: 809px;
+    height: 100px;
+    margin: 0 auto;
+    background-image: url(background.jpg);
+    background-size: cover;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    /*border:1px solid green;*/
+}
+.music-cover {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    height: 80px;
+    width: 80px;
+    border-radius:50%;
+}
+.information-name,.information-author {
+    display: block;
+    width: 150px;
+    left: 120px;
+    position: absolute;
+    text-align: center;
+}
+.information-name {
+    bottom: 20px;
+    height: 65px;
+}
+.information-author {
+    bottom: -20px;
+    height: 60px;
+}
+.play-timeBar{
+    position: absolute;
+    bottom: 5px;
+    left: 280px;
+    height: 80px;
+    width: 450px;
+}
+.music-information {
+    left: -6px;
+    bottom: 0px;
+    position: absolute;
+}
+#id-played-bar,#id-music-bar {
+    display: inline-block;
+    height: 5px;
+    left: 85px;
+    bottom: 60px;
+    border-radius: 4px;
+    position: absolute;
+}
+#id-music-bar{
+    background: black;
+    opacity: 0.3;
+}
+#id-played-bar{
+    background: -webkit-linear-gradient(right, #fec514, #EE4000);
+    z-index: 2;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+#id-current-time,#id-total-time {
+    display: inline-block;
+    bottom: 52px;
+    position: absolute;
+}
+#id-current-time {
+    left: 25px;
+}
+#id-total-time {
+    left: 400px;
+}
+#id-icon-play,#id-icon-pause,#id-icon-play-back,#id-icon-singlecircle,#id-icon-play-forward,#id-icon-volume,#id-icon-listcircle,#id-icon-volume-mute{
+    position: absolute;
+    display: inline-block;
+    width: 30px;
+    margin: 0 auto;
+}
+#id-icon-volume{
+    bottom: 9px;
+    right: 100px;
+}
+#id-icon-volume-mute{
+    bottom: 9px;
+    right: 100px;
+}
+#id-icon-listcircle{
+    bottom: 10px;
+    right: 303px;
+}
+#id-icon-singlecircle{
+    bottom: 10px;
+    right: 303px;
+}
+#id-icon-play{
+    bottom: 9px;
+    right: 200px;
+}
+#id-icon-pause{
+    bottom: 9px;
+    right: 200px;
+}
+#id-icon-play-back{
+    bottom: 9px;
+    right: 250px;
+}
+#id-icon-play-forward{
+    bottom: 9px;
+    right: 150px;
+}
+#id-total-volume,#id-current-volume {
+    display: inline-block;
+    height: 3px;
+    left: 352px;
+    bottom: 22px;
+    border-radius: 1px;
+    position: absolute;
+    cursor: pointer;
+}
+#id-total-volume{
+    opacity: 0.5;
+    background-color: black;
+}
+#id-current-volume{
+    background: -webkit-linear-gradient(right, #fec514, #EE4000);
+    border-color: red;
+    z-index: 2;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+#id-icon-pause,#id-icon-play,#id-icon-play-back,#id-icon-play-forward {
+        cursor: pointer;
+}
+#id-played-bar,#id-music-bar,.song-name,.icon-unlike,.icon-like {
+    cursor: pointer;
+}
+
+.hidden {
+    visibility:hidden !important;
+}
+
+.none {
+    display: none !important;
+}
+.trans{
+   -webkit-transition:all 1s ease;
+   transition:all 1s ease;
+}
+.hover{ visibility:visible;}
+.unvisi{
+    visibility:hidden;
+}
+.rotated {
+    -webkit-animation: rotated 6s linear infinite;
+            animation: rotated 6s linear infinite;
+}
+
+@-webkit-keyframes rotated {
+	0% {
+		-webkit-transform: rotate(0deg);
+		        transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
+		        transform: rotate(360deg);
+	}
+}
+
+@keyframes rotated {
+	0% {
+		-webkit-transform: rotate(0deg);
+		        transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
+		        transform: rotate(360deg);
+	}
+}
+
+/* 设置滚动条的样式 */
+::-webkit-scrollbar {
+    width: 6px;
+}
+/* 滚动槽 */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 6px;
+}
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background: #bbb;
+    -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.5);
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+    background: white;
+}
+
+/*歌曲列表的CSS*/
+.play-list-song {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack:distribute;
+        justify-content:space-around;
+    -webkit-box-align:center;
+        -ms-flex-align:center;
+            align-items:center;
+}
+.play-list-song:hover {
+    background-color: rgba(133, 143, 144, 0.4);
+}
+/*.play-list-song,.song-name,.song-artist {
+    height: 20px !important;
+}*/
+.even-row-color {
+    /*background-color: #e8f1ee;*/
+}
+.odd-row-color {
+    /*background-color: #ABCDEF;*/
+}
+.icon-like, .icon-unlike {
+    width:16px;
+    height:16px;
+    position: absolute;
+    left: 2%;
+}
+.likes {
+    position: relative;
+    top: -8px;
+    left: 8px;
+}
+.song-name {
+    overflow: hidden;
+    left: 6%;
+    position: relative;;
+    width: 240px
+}
+
+.song-artist {
+    overflow: hidden;
+    left: 3%;
+    position: relative;;
+    width: 195px;
+}
+.song-album {
+    overflow: hidden;
+    left: 3%;
+    position: relative;
+    width: 220px;
+}
+.blank-th {
+    width: 50px;
+}

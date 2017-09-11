@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>音乐播放器</title>
+    <link href="audio.css" rel="stylesheet">
+    <script src='basic.js'></script>
+</head>
+
+<body>
+    <!-- 音乐播放器容器 -->
+    <div class="music-container">
+        <!-- 搜索功能 -->
+        <div class="player-heard">
+            <input type="text" class='list-search' placeholder='音乐搜索'>
+        </div>
+        <!-- 插图 -->
+        <div class="music-plate">
+            <img class="plate-past" src="cover\Refrain.jpg">
+            <img class="plate-now" src="cover\Flower Dance.jpg">
+            <img class="plate-next" src="cover\Inspire.jpg">
+        </div>
+        <!-- 播放文件 -->
+        <div class="music-list">
+            <audio id="id-music-playing">
+                <source src="music\Weekend.mp3">
+            </audio>
+        </div>
+        <!-- 播放列表 -->
+        <div class="music-manipulate">
+            <!-- 专辑图片 -->
+            <img src="cover\Weekend.jpg" class="music-cover">
+            <!-- 和进度条 -->
+            <div class="play-timeBar">
+                <div class="time-and-bar">
+                    <!-- 播放时间 -->
+                    <div class="play-time">
+                        <span id="id-current-time">00:00</span>
+                        <span id="id-total-time"></span>
+                    </div>
+                    <!-- 进度条 -->
+                    <div id="id-control-bar">
+                        <span id="id-music-bar" style="width:300px;"></span>
+                        <span id="id-played-bar"></span>
+                    </div>
+                </div>
+                <!-- 播放控制 -->
+                <div class="play-control">
+                    <img src="icon\淡色\播放.png" id="id-icon-play">
+                    <img src="icon\淡色\暂停.png" id="id-icon-pause" class="hidden">
+                    <img src="icon\淡色\上一首.png" id="id-icon-play-back">
+                    <img src="icon\淡色\下一首.png" id="id-icon-play-forward">
+                    <img src="icon\淡色\音量.svg" id="id-icon-volume">
+                    <img src="icon\淡色\静音.svg" id="id-icon-volume-mute" class="hidden">
+                    <img src="icon\淡色\列表循环.png" id="id-icon-listcircle">
+                    <img src="icon\淡色\单曲循环.png" id="id-icon-singlecircle" class="hidden">
+                    <div id="id-volume-bar" class='trans unvisi'>
+                        <span id="id-total-volume" style="width:70px;"></span>
+                        <span id="id-current-volume" style='width:'></span>
+                    </div>
+                </div>
+            </div>
+            <!-- 音乐名称和作者 -->
+            <div class="music-information">
+                <span class="information-name">Weekend</span>
+                <span class="information-author">Dirk Reichardt</span>
+            </div>
+        </div>
+        <div class="play-list">
+            <table class="fixed-headers">
+                <thead>
+                    <tr class="play-list-head">
+                        <th class="blank-th"></th>
+                        <th class="list-title">音乐标题</th>
+                        <th class="list-artist">歌手</th>
+                        <th class="list-album">专辑</th>
+                    </tr>
+                </thead>
+                <tbody class="">
+                    <tr class="play-list-song">
+                        <td class="song-name">成都</td>
+                        <td class="song-artist">赵雷</td>
+                        <td class="song-album">成都</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">刚好遇见你</td>
+                        <td class="song-artist">李玉刚</td>
+                        <td class="song-album">刚好遇见你</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">童话镇</td>
+                        <td class="song-artist">陈一发儿</td>
+                        <td class="song-album">童话镇</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">Weekend</td>
+                        <td class="song-artist">Dirk Reichardt</td>
+                        <td class="song-album">Kokowääh 2</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">what for</td>
+                        <td class="song-artist">sAr</td>
+                        <td class="song-album">courtship</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">Righteous Path</td>
+                        <td class="song-artist">Blazo</td>
+                        <td class="song-album">Introducing Mellow</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">A Dead Leaf Dance</td>
+                        <td class="song-artist">As the Stars</td>
+                        <td class="song-album">Tempus Fugit</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">A Little Story</td>
+                        <td class="song-artist">Valentin</td>
+                        <td class="song-album">My View</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">We Don't Talk Anymore</td>
+                        <td class="song-artist">Charlie Puth</td>
+                        <td class="song-album">Nine Track Mind</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">My Soul</td>
+                        <td class="song-artist">July</td>
+                        <td class="song-album">Time</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">Refrain</td>
+                        <td class="song-artist">Anan Ryoko</td>
+                        <td class="song-album">Eternal Light</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">Flower Dance</td>
+                        <td class="song-artist">DJ OKAWARI</td>
+                        <td class="song-album">A Cup Of Coffee</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">匆匆那年</td>
+                        <td class="song-artist">王菲</td>
+                        <td class="song-album">匆匆那年</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">Luv Letter</td>
+                        <td class="song-artist">DJ OKAWARI</td>
+                        <td class="song-album">Libyus Music Sound</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">Journey</td>
+                        <td class="song-artist">Capo Productions</td>
+                        <td class="song-album">Serenity</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">A New Day</td>
+                        <td class="song-artist">Mark Petrie</td>
+                        <td class="song-album">1M1 Music Volume 1</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">canon in d</td>
+                        <td class="song-artist">Brian Crain</td>
+                        <td class="song-album">Piano Opus</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">사랑에 베이다</td>
+                        <td class="song-artist">July</td>
+                        <td class="song-album">Happiness</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">夜的钢琴曲五</td>
+                        <td class="song-artist">石进</td>
+                        <td class="song-album">夜的钢琴曲 Demo集</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">いつも何度でも</td>
+                        <td class="song-artist">ORCHESTRA</td>
+                        <td class="song-album">和楽器でジブリ</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">Summer</td>
+                        <td class="song-artist">久石譲</td>
+                        <td class="song-album">Encore</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">The Right Path</td>
+                        <td class="song-artist">Thomas Greenberg</td>
+                        <td class="song-album">Age of Innocence</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">Beyond The Memory</td>
+                        <td class="song-artist">July</td>
+                        <td class="song-album">Beyond The Memory</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">Inspire</td>
+                        <td class="song-artist">Capo Productions</td>
+                        <td class="song-album">Serenity</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">Always With Me</td>
+                        <td class="song-artist">奥户巴寿</td>
+                        <td class="song-album">幸福的味道</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">Music Life In Forest</td>
+                        <td class="song-artist">DAISHI DANCE</td>
+                        <td class="song-album">MELODIES MELODIES</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">Just Blue</td>
+                        <td class="song-artist">Space</td>
+                        <td class="song-album">Just Blue</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">Sad Angel</td>
+                        <td class="song-artist">伊戈尔.克鲁托伊</td>
+                        <td class="song-album">neyanbhbin</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">Mariage d'amour</td>
+                        <td class="song-artist">Richard Clayderman</td>
+                        <td class="song-album">Lettre à ma Mère</td>
+                    </tr>
+                    <tr class="play-list-song">
+                        <td class="song-name">the dawn</td>
+                        <td class="song-artist">Dreamtale</td>
+                        <td class="song-album">Beyond Reality</td>
+                    </tr>
+        </div>
+        <!-- 操作界面 -->
+
+    </div>
+    <script src="audio.js"></script>
+</body>
+
+</html>
