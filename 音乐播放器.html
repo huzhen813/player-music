@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>音乐播放器</title>
     <link href="audio.css" rel="stylesheet">
-    <script src='basic.js'></script>
+    <script src='hu.js'></script>
 </head>
 
 <body>
@@ -17,20 +17,20 @@
         </div>
         <!-- 插图 -->
         <div class="music-plate">
-            <img class="plate-past" src="cover\Refrain.jpg">
-            <img class="plate-now" src="cover\Flower Dance.jpg">
-            <img class="plate-next" src="cover\Inspire.jpg">
+            <img class="plate-past" src="cover/Refrain.jpg">
+            <img class="plate-now" src="cover/Flower Dance.jpg">
+            <img class="plate-next" src="cover/Inspire.jpg">
         </div>
         <!-- 播放文件 -->
         <div class="music-list">
             <audio id="id-music-playing">
-                <source src="music\Weekend.mp3">
+                <source src="music/Weekend.mp3">
             </audio>
         </div>
         <!-- 播放列表 -->
         <div class="music-manipulate">
             <!-- 专辑图片 -->
-            <img src="cover\Weekend.jpg" class="music-cover">
+            <img src="cover/Weekend.jpg" class="music-cover">
             <!-- 和进度条 -->
             <div class="play-timeBar">
                 <div class="time-and-bar">
@@ -47,14 +47,14 @@
                 </div>
                 <!-- 播放控制 -->
                 <div class="play-control">
-                    <img src="icon\淡色\播放.png" id="id-icon-play">
-                    <img src="icon\淡色\暂停.png" id="id-icon-pause" class="hidden">
-                    <img src="icon\淡色\上一首.png" id="id-icon-play-back">
-                    <img src="icon\淡色\下一首.png" id="id-icon-play-forward">
-                    <img src="icon\淡色\音量.svg" id="id-icon-volume">
-                    <img src="icon\淡色\静音.svg" id="id-icon-volume-mute" class="hidden">
-                    <img src="icon\淡色\列表循环.png" id="id-icon-listcircle">
-                    <img src="icon\淡色\单曲循环.png" id="id-icon-singlecircle" class="hidden">
+                    <img src="icon/淡色/播放.png" id="id-icon-play">
+                    <img src="icon/淡色/暂停.png" id="id-icon-pause" class="hidden">
+                    <img src="icon/淡色/上一首.png" id="id-icon-play-back">
+                    <img src="icon/淡色/下一首.png" id="id-icon-play-forward">
+                    <img src="icon/淡色/音量.svg" id="id-icon-volume">
+                    <img src="icon/淡色/静音.svg" id="id-icon-volume-mute" class="hidden">
+                    <img src="icon/淡色/列表循环.png" id="id-icon-listcircle">
+                    <img src="icon/淡色/单曲循环.png" id="id-icon-singlecircle" class="hidden">
                     <div id="id-volume-bar" class='trans unvisi'>
                         <span id="id-total-volume" style="width:70px;"></span>
                         <span id="id-current-volume" style='width:'></span>

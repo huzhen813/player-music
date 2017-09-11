@@ -100,7 +100,6 @@ var setTime = setInterval(function updatePlayedBar() {
     var playedBarWidth = (music.currentTime / music.duration) * musicBarWidth
     playedBar.style.width = playedBarWidth + 'px'
     currentTime.innerHTML = transTime(music.currentTime)
-    console.log(music.currentTime, transTime(music.currentTime), '时间都去哪了');
     //如果是时间结束，并且是非单曲循环，自动下一曲
     if (music.currentTime === music.duration && !music.loop){
         nextIcon.click()
@@ -127,7 +126,6 @@ var controlBar = function () {
     music.currentTime = newCurrentTime
     var playedBarWidth = (music.currentTime / music.duration) * musicBarWidth
     playedBar.style.width = playedBarWidth + 'px'
-    console.log(playedBar.style.width, 'zhegeyoubu');
 }
 
 musicBar.addEventListener('click', function () {
@@ -188,14 +186,6 @@ playList.addEventListener('click', function(event){
     }
 })
 
-// 表格的样式设计，奇数和偶数行的background-color不同
-for(i = 0; i < playLists.length; i++){
-    if(i % 2 == 0){
-        playLists[i].classList.add("even-row-color");
-    } else {
-        playLists[i].classList.add("odd-row-color");
-    }
-}
 // 歌曲搜索功能
 listSearch.addEventListener('keyup', function(event){
     var search = event.target
@@ -204,15 +194,16 @@ listSearch.addEventListener('keyup', function(event){
 })
 
 var searchTitle = function(v) {
-    // 给所有歌曲添加隐藏class
+    // 给所有歌曲添加隐藏class,函数控制
     for (var i = 0; i < playLists.length; i++) {
-        playLists[i].classList.add('hidden')
+        playLists[i].classList.add('none')
     }
     // 当歌曲的innerText包含搜索信息是去除class
-    for (var i = 0; i < playLists.length; i++) {
-        var a = playLists[i]
-        if (a.innerText.toLowerCase().includes(v.toLowerCase())){
-            a.classList.remove('hidden')
+    for (var j = 0; j < playLists.length; j++) {
+        var a = playLists[j]
+        var con = a.innerText.toLowerCase().includes(v.toLowerCase())
+        if (con){
+            a.classList.remove('none')
         }
     }
 }
@@ -258,7 +249,7 @@ var changeMusic = function (direct){
     if (direct === 'next'){
         var currentSrcIndex = (currentSrcIndex + 1) % songName.length
     } else {
-        var currentSrcIndex = (currentSrcIndex -1 + songName.length * 100) % songName.length
+        var currentSrcIndex = (currentSrcIndex - 1 + songName.length * 100) % songName.length
     }
     var f = songName[currentSrcIndex].innerText
     var song = "music\\" + f + '.mp3'
@@ -302,16 +293,14 @@ var bindEvents = function () {
     })
     // 绑定排序事件
     bindEventAll('.play-list-head th', 'click', function () {
-        console.log('nengdaozhe ?');
         sortTable()
-        console.log('这呢？');
     })
     bindEventAll('.play-list', 'click', function () {
         likeToggle()
     })
 }
-var _mainFunction = function(){
+var __main = function(){
     bindEvents()
     playInitialize()
 }
-_mainFunction()
+__main()

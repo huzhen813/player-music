@@ -1,5 +1,5 @@
-// 基本函数定义，对所有的函数进行分类��?
-// array��? object��? string ，number��? dom��? 基本
+// 基本函数定义，对所有的函数进行分类，
+// array， object， string ，number， dom， 基本
 var log = console.log.bind(console)
 
 // 合并dqs和dqsa，按需返回
@@ -11,6 +11,19 @@ var dqs = function(selector) {
     return document.querySelector(selector)
 }
 
+// DOM 元素加载后的函数调用
+var domLoad = function (selector, callback) {
+    var intervalNum = setInterval(function () {
+        var ele = dqs(selector);
+        console.log('没有加载');
+        if (ele) {
+            console.log('元素有了', ele);
+            callback()
+            clearInterval(intervalNum)
+        }
+    }, 100)
+}
+
 var toggleClass = function(element, className) {
     if (element.classList.contains(className)) {
         element.classList.remove(className)
@@ -18,29 +31,40 @@ var toggleClass = function(element, className) {
         element.classList.add(className)
     }
 }
+// 如果visible被设置则删除它，否则添加它
+// div.classList.toggle("visible");
+
+// 添加/删除 visible，取决于测试条件，i小于10
+// IE不支持第二个参数
+// div.classList.toggle("visible", i < 10);
+
+// var toggleClass = function (element, className, condition) {
+//     return element.classList.toggle(className, condition);
+// }
+
 // 判断字符串是否是数字
-var isNum = function (s) {
-    if (s!=null && s!="") {
+var isNum = function(s) {
+    if (s != null && s != "") {
         return !isNaN(s);
     }
     return false;
 }
-// 对一些number 补零，js不支��?1 < arg < 10
-var addZero = function (arg) {
-    if (arg >= 0 && arg < 10) {
+// 对一些number 补零，js不支持1 < arg < 10
+var addZero = function(arg) {
+    if (arg >= 1 && arg < 10) {
         arg = '0' + arg
     }
     return arg
 }
 
-// 把秒��?153.54）转换成时间格式02:33
+// 把秒（153.54）转换成时间格式02:33
 var transTime = function(time) {
     var minute = parseInt(time / 60)
     var second = parseInt(time % 60)
     // 补零
     var minute = addZero(minute)
     var second = addZero(second)
-    // 如果小于一个小��?
+    // 如果小于一个小时
     if (minute < 60) {
         var t = `${minute}:${second}`
     } else {
@@ -54,8 +78,8 @@ var transTime = function(time) {
     return t
 }
 
-// 当前时间的转��?
-// new Date()返回的时间格式如��?
+// 当前时间的转换
+// new Date()返回的时间格式如下
 // Tue Jun 13 2017 14:27:59 GMT+0800 (中国标准时间)
 var nowTime = function() {
     var d = new Date()
@@ -71,18 +95,14 @@ var nowTime = function() {
     return `${year}/${month}/${day} ${hour}:${min}:${sec}`
 }
 
-// 在a~b之间生成随机整a��?
+// 在a~b之间生成随机整a数
 // generate
-var randomInt = function(a, b) {
-    // 返回 0 ~ 1 之间的随机数��?
-    var mathRandom = Math.random()
-    var numberRandom = mathRandom * (b - a + 1) + (a - 1)
-    // 对数进行上舍入��?
-    var intRandom = Math.ceil(numberRandom)
-    return intRandom
+var randomBetween = function(start, end) {
+	var n = Math.random() * (end - start + 1)
+	return Math.floor(n + start)
 }
 
-// 使用函数检查一个数字是否是奇数（奇数对2取余数不等于0��?
+// 使用函数检查一个数字是否是奇数（奇数对2取余数不等于0）
 var isOdd = function(n) {
     // 取余数的操作符是 %
     if (n % 2 != 0) {
@@ -92,7 +112,7 @@ var isOdd = function(n) {
     }
 }
 
-// 用于测试的套��?
+// 用于测试的套路
 var ensure = function(condition, message) {
     if (!condition) {
         console.log(message)
@@ -114,7 +134,7 @@ var findElement = function(element, selector) {
 }
 
 // 查找target在兄弟元素的序号
-var eleIndex = function () {
+var eleIndex = function() {
     var target = event.target
     // 确认点击的是第几个index
     var targetAll = target.parentElement.children
@@ -129,7 +149,7 @@ var eleIndex = function () {
 
 // 当无selector参数时，删除ele的所有子元素
 // 有时，删除ele下的含有selector的所有子元素
-var clearEle = function (ele, selector) {
+var clearEle = function(ele, selector) {
     var eleSel = ele.querySelector(selector)
     if (eleSel == null) {
         while (ele.firstChild) {
@@ -142,13 +162,19 @@ var clearEle = function (ele, selector) {
         }
     }
 }
-// 还没有完成的函数，返回一个数组，包含element下所有非selector元素。没有意��?
+// 还没有完成的函数，返回一个数组，包含element下所有非selector元素。没有意义
 // 目前有元素包含关系了，A.contains(B)
-// 适用于弹窗之类的东西，当点击弹窗以外的地方时，关闭弹��?
+// 适用于弹窗之类的东西，当点击弹窗以外的地方时，关闭弹窗
 
-var removeClassAll = function(className) {
+// removeClassAll增加第二个参数ele
+//ele为DOM元素
+var removeClassAll = function(className, ele) {
     var selector = '.' + className
-    var elements = document.querySelectorAll(selector)
+    if (ele) {
+        var elements = ele.querySelectorAll(selector)
+    } else {
+        var elements = document.querySelectorAll(selector)
+    }
     for (var i = 0; i < elements.length; i++) {
         var e = elements[i]
         e.classList.remove(className)
@@ -170,40 +196,85 @@ var bindEventAll = function(selector, eventName, callback) {
 }
 
 // AJAX事件，request是object
+// 如何设置，当callback没有设定，默认的函数设置
+
+// var baseUrl = 'https://vip.cocode.cc/sandbox/todo/751590100'
+//
+// var request = {
+//     path:'/all',
+//     callback:function (r) {
+//         var response = JSON.parse(r.response)
+//         console.log(response[0].qq, '这是log出来的response');
+//     },
+// }
+// var request = {
+//     method:'POST',
+//     path:'/add',
+//     data:{"task": "为啥要学习"},
+//     callback:function () {
+//         console.log('添加成功');
+//     }
+// }
 var ajax = function(request) {
-    var r = new XMLHttpRequest()
-    // 设置请求方法和请求地址
-    r.open(request.method, request.path, true)
-    // 设置发送的数据的格��?
-    r.setRequestHeader('Content-Type', 'application/json')
-    // 注册响应函数
-    r.onreadystatechange = function() {
-        if (r.readyState === 4) {
-            request.reseponseCallback()
+    // 二元选择，如果request.method为false、null、NaN、0、空字符串（""）、undefined;
+    // 此时选择 || 后边的。
+    var method = request.method || "GET"
+    var url = baseUrl + request.path
+    var contentType = request.contentType || 'application/json'
+    var data = JSON.stringify(request.data) || '';
+
+    var callback = function () {
+        if (!request.callback) {
+            console.log('请求成功，PS:没有设置callback');
         } else {
-            console.log('change', request)
+            request.callback(r)
         }
     }
-    // 发送请��?
-    r.send(request.data)
+    var r = new XMLHttpRequest()
+    // 设置请求方法和请求地址，
+    r.open(method, url, true)
+    // 设置发送的数据的格式
+    r.setRequestHeader('Content-Type', contentType)
+    // 注册响应函数
+    r.onreadystatechange = function() {
+        if(r.readyState === 4) {
+            callback()
+        }
+    }
+    // 发送请求
+    r.send(data)
 }
-// aiax(request)
+// ajax(request)
 
-// 由于typeof类型判断有种种弊端，可以借鉴jQuery.type()的方��?
+// 对于ajax请求可以进一步进行包装，如下所示。
+
+// var updateTodo = function(todoId, task) {
+//     var url = 'http://vip.cocode.cc/sandbox/todo/3400711034/update/' + todoId
+//     var data = {
+//         'task': task,
+//     }
+//     data = JSON.stringify(data)
+//     ajax('POST', url, data, function(r){
+//         var t = JSON.parse(r.response)
+//         console.log(t)
+//     })
+// }
+
+// 由于typeof类型判断有种种弊端，可以借鉴jQuery.type()的方式
 //关于typeof的用法和弊端见下
 //http://bonsaiden.github.io/JavaScript-Garden/zh/#types.typeof
-var newTypeOf = function (obj){
-    var class2type = {} ;
+var newTypeOf = function(obj) {
+    var class2type = {};
     var allType = "Boolean,Number,String,Function,Array,Date,RegExp,Object,Error"
 
-    // forEach() 方法对数组的每个元素执行一次提供的函数��?
+    // forEach() 方法对数组的每个元素执行一次提供的函数。
     allType.split(",").forEach(function(e, i) {
-        class2type[ "[object " + e + "]" ] = e.toLowerCase();
+        class2type["[object " + e + "]"] = e.toLowerCase();
     })
-    if ( obj == null ){
+    if (obj == null) {
         return String(obj);
     }
-    return typeof obj === "object" || typeof obj === "function" ? class2type[ class2type.toString.call(obj) ] || "object" : typeof obj;
+    return typeof obj === "object" || typeof obj === "function" ? class2type[class2type.toString.call(obj)] || "object" : typeof obj;
 }
 
 // 判断有多少个字符串里面含有某字符的数量，
@@ -211,10 +282,10 @@ var newTypeOf = function (obj){
 // 2.判断非字符串，比如数字，其没有length和slice方法，因此将其类型转换成string
 
 var hasStrNum = function(bs, ss) {
-    // 类型判断��?
-    var bsType  = (newTypeOf(bs)  != 'string')
-    var ssType  = (newTypeOf(ss) != 'string')
-    // 类型转换，是否有其他更好的方式，不用强制转换��?
+    // 类型判断，
+    var bsType = (newTypeOf(bs) != 'string')
+    var ssType = (newTypeOf(ss) != 'string')
+    // 类型转换，是否有其他更好的方式，不用强制转换。
     if (bsType || ssType) {
         var bs = String(bs)
         var ss = String(ss)
@@ -236,15 +307,15 @@ var hasStrNum = function(bs, ss) {
 // 要看
 // var ss = 454
 // var bs = 12345454
-// 需要考虑这种情况，是否允许hasStrNum(bs, ss) = 2，即当ss = 454 ,bs中包��?45454��?
-// 此时hasStrNum(bs, ss)��?1还是2��?
+// 需要考虑这种情况，是否允许hasStrNum(bs, ss) = 2，即当ss = 454 ,bs中包含45454，
+// 此时hasStrNum(bs, ss)是1还是2。
 // if (n == ss) {
 //     var num = num + 1
 //     var i = i + sslen - 1
 // }
 
-// 整数、有两位小数��?
-// 输入限制，取代正则��?
+// 整数、有两位小数，
+// 输入限制，取代正则。
 var is_digit = function(s) {
     var numbers = '0123456789.'
     var emptyStr = ''
@@ -253,18 +324,18 @@ var is_digit = function(s) {
             return emptyStr
         }
     }
-    // 英文句点最多只能有一��?
+    // 英文句点最多只能有一个
     var con1 = (hasStrNum(s, '.') >= 2)
     // 小数点后最多只能有两位
     var con2 = (s.split('.')[1] != undefined && s.split('.')[1].length > 2)
-    // 条件判断为false，返回空字符��?
+    // 条件判断为false，返回空字符串
     if (con1 || con2) {
         return emptyString
     }
     return s
 }
 
-// input等输入框的输入限��?
+// input等输入框的输入限制
 // var inputPrice = dqs('.input-price')
 // inputPrice.addEventListener('keyup', function(event) {
 //     var target = event.target
@@ -272,10 +343,10 @@ var is_digit = function(s) {
 // })
 
 // 延时函数的另一种写法，
-// 不可以直接调用f，因为其内部存在调用信息��?
+// 不可以直接调用f，因为其内部存在调用信息。
 var setTimeRun = function(start, end, delayTime) {
     var f = function() {
-        console.log(start, 'start的数��?')
+        console.log(start, 'start的数字')
         start++
         if (start <= end) {
             setTimeout(f, delayTime)
@@ -286,11 +357,11 @@ var setTimeRun = function(start, end, delayTime) {
 // setTimeRun(0, 255, 3000)
 
 // 清除所有的setTimeout
-// Javascript 中并没有内置的函数来清除所有的定时器（timeout ��? interval），
-// 不过我们可以使用一种暴力的方法来清除所有的定时器��?
+// Javascript 中并没有内置的函数来清除所有的定时器（timeout 或 interval），
+// 不过我们可以使用一种暴力的方法来清除所有的定时器。
 // 由于 ID 会随着定时器被调用的增加而增加，
-// 因此可以记录下最大的 ID 并一起清除��?
-var clearAllTimeout = function () {
+// 因此可以记录下最大的 ID 并一起清除。
+var clearAllTimeout = function() {
     // 先调用一个setTimeout，记录TimeoutId的最大值biggestTimeoutId
     var biggestTimeoutId = window.setTimeout(function() {}, 1)
     for (var i = 1; i < biggestTimeoutId; i++) {
@@ -302,7 +373,7 @@ var clearAllTimeout = function () {
 //将两个数组打包成object
 var zipObj = function(keys, values) {
     var index = 0
-    // 取两个数组中长度的最小��?
+    // 取两个数组中长度的最小值
     var len = Math.min(keys.length, values.length)
     var out = {}
     while (index < len) {
@@ -338,16 +409,16 @@ var uniArr6 = function(arr) {
 }
 
 // 返回对象的key
-var keysIn = function (obj) {
-  var prop;
-  var ks = [];
-  for (prop in obj) {
-    ks[ks.length] = prop;
-  }
-  return ks;
+var keysIn = function(obj) {
+    var prop;
+    var ks = [];
+    for (prop in obj) {
+        ks[ks.length] = prop;
+    }
+    return ks;
 }
 
-// 面向Stack Overflow编程，出现error时，页面跳转到Stack Overflow搜索错误信息的界面上��?
+// 面向Stack Overflow编程，出现error时，页面跳转到Stack Overflow搜索错误信息的界面上，
 // try {
 //     console.log(hk);
 // } catch(e) {
@@ -357,7 +428,7 @@ var keysIn = function (obj) {
 // 列表排序
 
 // 比较函数，先根据val是否为数字，然后根据本地排序
-var comparer = function (index) {
+var comparer = function(index) {
     return function(a, b) {
         var valA = getCellValue(a, index)
         var valB = getCellValue(b, index);
@@ -366,15 +437,14 @@ var comparer = function (index) {
     };
 }
 
-// 获得每个row的Value
-var getCellValue = function (row, index) {
+// 获得每个row的值
+var getCellValue = function(row, index) {
     var cell = row.querySelectorAll('td');
     return cell[index].innerText;
 }
 
-var sortTable = function () {
+var sortTable = function() {
     var index = eleIndex()
-    var target = event.target
     var table = target.closest('table')
     // 选取table下所有的tr数组
     var trAll = table.querySelectorAll('tbody tr')
@@ -397,29 +467,65 @@ var sortTable = function () {
     }
 }
 
-// IE版本的检��?
-var testIEversion = function () {
+// IE版本的检测
+var testIEversion = function() {
     var win = window;
     var doc = win.document;
-    var input = doc.createElement ("input");
+    var input = doc.createElement("input");
 
-    var ie = (function (){
-    //"!win.ActiveXObject" is evaluated to true in IE11
-    if (win.ActiveXObject === undefined) return null;
-    if (!win.XMLHttpRequest) return 6;
-    if (!doc.querySelector) return 7;
-    if (!doc.addEventListener) return 8;
-    if (!win.atob) return 9;
-    if (!input.dataset) return 10;
-    return 11;
+    var ie = (function() {
+        //"!win.ActiveXObject" is evaluated to true in IE11
+        if (win.ActiveXObject === undefined) return null;
+        if (!win.XMLHttpRequest) return 6;
+        if (!doc.querySelector) return 7;
+        if (!doc.addEventListener) return 8;
+        if (!win.atob) return 9;
+        //"!doc.body.dataset" is faster but the body is null when the DOM is not
+        //ready. Anyway, an input tag needs to be created to check if IE is being
+        //emulated
+        if (!input.dataset) return 10;
+        return 11;
     })();
     return ie
 }
 //
 // var IEversion = testIEversion()
 //
-// console.log('前面的IE的版本测��?', IEversion);
+// console.log('前面的IE的版本测试', IEversion);
 // if (IEversion <= 9) {
-//     console.log('后面的IE的版本测��?', IEversion);
+//     console.log('后面的IE的版本测试', IEversion);
 // }
 // 如果不是IE，IEversion == null
+
+// cookie相关的函数
+// 设置cookie
+var setCookie = function(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + d.toGMTString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+// 读取cookie
+var getCookie = function(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i].trim();
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+// 检查cookie， username是设置的key值。
+var checkCookie = function (username) {
+    username = getCookie(username)
+    if (username != null && username != "") {
+        alert('Welcome again ' + username + '!')
+    } else {
+        username = prompt('Please enter your name:', "")
+        if (username != null && username != "") {
+            setCookie(username, username, 365)
+        }
+    }
+}
