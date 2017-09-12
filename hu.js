@@ -51,7 +51,7 @@ var isNum = function(s) {
 }
 // 对一些number 补零，js不支持1 < arg < 10
 var addZero = function(arg) {
-    if (arg >= 1 && arg < 10) {
+    if (arg >= 0 && arg < 10) {
         arg = '0' + arg
     }
     return arg
@@ -134,7 +134,7 @@ var findElement = function(element, selector) {
 }
 
 // 查找target在兄弟元素的序号
-var eleIndex = function() {
+var eleIndex = function(event) {
     var target = event.target
     // 确认点击的是第几个index
     var targetAll = target.parentElement.children
@@ -165,7 +165,12 @@ var clearEle = function(ele, selector) {
 // 还没有完成的函数，返回一个数组，包含element下所有非selector元素。没有意义
 // 目前有元素包含关系了，A.contains(B)
 // 适用于弹窗之类的东西，当点击弹窗以外的地方时，关闭弹窗
-
+var addClassAll = function(className, elements) {
+    for (var i = 0; i < elements.length; i++) {
+        var e = elements[i]
+        e.classList.add(className)
+    }
+}
 // removeClassAll增加第二个参数ele
 //ele为DOM元素
 var removeClassAll = function(className, ele) {
@@ -194,7 +199,15 @@ var bindEventAll = function(selector, eventName, callback) {
         e.addEventListener(eventName, callback)
     }
 }
-
+var searchTitle = function (val, resultDom) {
+    addClassAll('none', resultDom)
+    resultDom.forEach(function (element) {
+        var con = (element.innerText.toLowerCase().indexOf(val.toLowerCase()) != -1)
+        if (con) {
+            element.classList.remove('none')
+        }
+    })
+}
 // AJAX事件，request是object
 // 如何设置，当callback没有设定，默认的函数设置
 
@@ -398,25 +411,6 @@ var uniArr = function(arr) {
     }
     return n
 }
-// ES6的方法set数组去重，返回的是Set
-var uniArr6 = function(arr) {
-    //临时数组
-    var s = new Set()
-    for (var i = 0; i < arr.length; i++) {
-        s.add(arr[i])
-    }
-    return s
-}
-
-// 返回对象的key
-var keysIn = function(obj) {
-    var prop;
-    var ks = [];
-    for (prop in obj) {
-        ks[ks.length] = prop;
-    }
-    return ks;
-}
 
 // 面向Stack Overflow编程，出现error时，页面跳转到Stack Overflow搜索错误信息的界面上，
 // try {
@@ -443,8 +437,9 @@ var getCellValue = function(row, index) {
     return cell[index].innerText;
 }
 
-var sortTable = function() {
-    var index = eleIndex()
+var sortTable = function(event) {
+    var index = eleIndex(event)
+    var target = event.target
     var table = target.closest('table')
     // 选取table下所有的tr数组
     var trAll = table.querySelectorAll('tbody tr')
@@ -462,8 +457,8 @@ var sortTable = function() {
     var tbody = table.querySelector('tbody');
     var tr = table.querySelector('tr');
     clearEle(tbody, 'tr')
-    for (var i = 0; i < rows.length; i++) {
-        appendHtml(tbody, rows[i].innerHTML)
+    for (var j = 0; j < rows.length; j++) {
+        appendHtml(tbody, rows[j].innerHTML)
     }
 }
 

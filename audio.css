@@ -41,24 +41,16 @@ tbody {
 thead {
     position: relative;
 }
+.play-list-head {
+    display: flex;
+    justify-content: space-around;
+    text-align: left;
+}
 .list-title {
-    overflow: hidden;
-    left: -4%;
-    position: absolute;
-    width: 195px;
-    height: 30px;
+    width: 210px;
 }
 .list-artist {
-    overflow: hidden;
-    left: 31%;
-    position: absolute;
     width: 195px;
-    height: 30px;
-}
-.list-album {
-    overflow: hidden;
-    position: absolute;
-    right: 115px;
 }
 .music-plate {
     position: absolute;
@@ -321,15 +313,7 @@ thead {
 .play-list-song:hover {
     background-color: rgba(133, 143, 144, 0.4);
 }
-/*.play-list-song,.song-name,.song-artist {
-    height: 20px !important;
-}*/
-.even-row-color {
-    /*background-color: #e8f1ee;*/
-}
-.odd-row-color {
-    /*background-color: #ABCDEF;*/
-}
+
 .icon-like, .icon-unlike {
     width:16px;
     height:16px;
