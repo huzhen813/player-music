@@ -234,8 +234,26 @@ var changeMusic = function (direct){
     musicPlay()
 }
 
-// 初始化播放音量和循环
+var addMusicList = function () {
+    for (var i = 0; i < musicList.length; i++) {
+        var name = musicList[i].name
+        var artist = musicList[i].artist
+        var album = musicList[i].album
+        var template =
+            `
+        <tr class="play-list-song">
+            <td class="song-name">${name}</td>
+            <td class="song-artist">${artist}</td>
+            <td class="song-album">${album}</td>
+        </tr>
+        `
+        appendHtml(dqs('tbody'), template)
+    }
+}
+
+// 初始化
 var playInitialize = function (){
+    addMusicList()
     addLikeIcon()
     music.volume = 0.1
     currentVolume.style.width = '7px'
@@ -276,6 +294,8 @@ var bindEvents = function () {
     // 绑定排序事件
     bindEvent('.play-list-head th', 'click', function (event) {
         sortTable(event)
+        var trs = dqs('tbody tr')
+        addClass('play-list-song', trs)
     })
     bindEvent('.play-list', 'click', function (event) {
         likeToggle(event)
