@@ -219,7 +219,7 @@ var likeToggle = function (event) {
 
 // 切换歌曲，只需要找出当前music.src的值
 var changeMusic = function (direct){
-    if (music.attributes["src"] == undefined){
+    if (music.attributes["src"]){
         var currentSrcIndex = 0
     } else {
         for (var i = 0; i < songName.length; i++){
