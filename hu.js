@@ -165,7 +165,7 @@ var clearEle = function(ele, selector) {
 // 还没有完成的函数，返回一个数组，包含element下所有非selector元素。没有意义
 // 目前有元素包含关系了，A.contains(B)
 // 适用于弹窗之类的东西，当点击弹窗以外的地方时，关闭弹窗
-var addClassAll = function(className, elements) {
+var addClass = function(className, elements) {
     for (var i = 0; i < elements.length; i++) {
         var e = elements[i]
         e.classList.add(className)
@@ -173,7 +173,7 @@ var addClassAll = function(className, elements) {
 }
 // removeClassAll增加第二个参数ele
 //ele为DOM元素
-var removeClassAll = function(className, ele) {
+var removeClass = function(className, ele) {
     var selector = '.' + className
     if (ele) {
         var elements = ele.querySelectorAll(selector)
@@ -186,19 +186,18 @@ var removeClassAll = function(className, ele) {
     }
 }
 // 事件绑定
-// 单个绑定
-var bindEvent = function(element, eventName, callback) {
-    element.addEventListener(eventName, callback)
-}
-
-// 多个绑定
-var bindEventAll = function(selector, eventName, callback) {
+var bindEvent = function(selector, eventName, callback) {
     var elements = document.querySelectorAll(selector)
-    for (var i = 0; i < elements.length; i++) {
-        var e = elements[i]
-        e.addEventListener(eventName, callback)
+    if (elements.length > 1) {
+        for (var i = 0; i < elements.length; i++) {
+            var e = elements[i]
+            e.addEventListener(eventName, callback)
+        }
+    } else {
+        elements[0].addEventListener(eventName, callback)
     }
 }
+
 var searchTitle = function (val, resultDom) {
     addClassAll('none', resultDom)
     resultDom.forEach(function (element) {
