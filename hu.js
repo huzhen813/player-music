@@ -199,7 +199,7 @@ var bindEvent = function(selector, eventName, callback) {
 }
 
 var searchTitle = function (val, resultDom) {
-    addClassAll('none', resultDom)
+    addClass('none', resultDom)
     resultDom.forEach(function (element) {
         var con = (element.innerText.toLowerCase().indexOf(val.toLowerCase()) != -1)
         if (con) {
