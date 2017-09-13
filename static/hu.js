@@ -162,7 +162,7 @@ var clearEle = function(ele, selector) {
 // 还没有完成的函数，返回一个数组，包含element下所有非selector元素。没有意义
 // 目前有元素包含关系了，A.contains(B)
 // 适用于弹窗之类的东西，当点击弹窗以外的地方时，关闭弹窗
-var addClass = function(className, elements) {
+var addClass = function(elements, className) {
     for (var i = 0; i < elements.length; i++) {
         var e = elements[i]
         e.classList.add(className)
