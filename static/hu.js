@@ -15,9 +15,7 @@ var dqs = function(selector) {
 var domLoad = function (selector, callback) {
     var intervalNum = setInterval(function () {
         var ele = dqs(selector);
-        console.log('没有加载');
         if (ele) {
-            console.log('元素有了', ele);
             callback()
             clearInterval(intervalNum)
         }
@@ -104,7 +102,6 @@ var randomBetween = function(start, end) {
 
 // 使用函数检查一个数字是否是奇数（奇数对2取余数不等于0）
 var isOdd = function(n) {
-    // 取余数的操作符是 %
     if (n % 2 != 0) {
         return true
     } else {
@@ -185,16 +182,17 @@ var removeClass = function(className, ele) {
         e.classList.remove(className)
     }
 }
-// 事件绑定
+// 事件绑定，selector可以是选择器或者DOM
 var bindEvent = function(selector, eventName, callback) {
-    var elements = document.querySelectorAll(selector)
+    var elements = newTypeOf(selector) == 'string' ? dqs(selector) : selector
     if (elements.length > 1) {
         for (var i = 0; i < elements.length; i++) {
             var e = elements[i]
             e.addEventListener(eventName, callback)
         }
     } else {
-        elements[0].addEventListener(eventName, callback)
+        var ele = elements[0] || elements
+        ele.addEventListener(eventName, callback)
     }
 }
 
@@ -278,7 +276,6 @@ var ajax = function(request) {
 var newTypeOf = function(obj) {
     var class2type = {};
     var allType = "Boolean,Number,String,Function,Array,Date,RegExp,Object,Error"
-
     // forEach() 方法对数组的每个元素执行一次提供的函数。
     allType.split(",").forEach(function(e, i) {
         class2type["[object " + e + "]"] = e.toLowerCase();
@@ -522,4 +519,12 @@ var checkCookie = function (username) {
             setCookie(username, username, 365)
         }
     }
+}
+var hoverToggle = function (element, className) {
+    element.addEventListener('mouseover', function(){
+        element.classList.remove(className)
+    })
+    element.addEventListener('mouseout', function(){
+        element.classList.add(className)
+    })
 }

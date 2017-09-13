@@ -1,35 +1,7 @@
 
-var music = dqs('#id-music-playing')
-var playIcon = dqs('#id-icon-play')
-var pauseIcon = dqs('#id-icon-pause')
-var nextIcon = dqs('#id-icon-play-forward')
-var preIcon = dqs('#id-icon-play-back')
-var musicCover = dqs('.music-cover')
-var volumeMuteIcon = dqs('#id-icon-volume-mute')
-var currentTime = dqs('#id-current-time')
-var totalTime = dqs('#id-total-time')
-var playedBar = dqs('#id-played-bar')
-var musicBar = dqs('#id-music-bar')
-var playList = dqs('.play-list')
-var playLists = dqs('.play-list-song')
-var songName = dqs('.song-name')
-var informationName = dqs('.information-name')
-var informationAuthor = dqs('.information-author')
-var songArtist = dqs('.song-artist')
-var platePast = dqs('.plate-past')
-var plateNow = dqs('.plate-now')
-var plateNext = dqs('.plate-next')
-var volumeIcon = dqs('#id-icon-volume')
-var listCircleIcon = dqs('#id-icon-listcircle')
-var singleCircleIcon = dqs('#id-icon-singlecircle')
-var currentVolume = dqs('#id-current-volume')
-var volumeBar = dqs('#id-volume-bar')
-// var listSearch = dqs('.list-search')
-
 // 查找音乐
 var findMusic = function (){
     for (var i = 0; i < songName.length; i++){
-        var currentMusicIndex = 0
         var a = informationName.innerText
         var b = songName[i].innerText
         if (b == a){
@@ -70,6 +42,7 @@ var musicPause = function() {
     musicCover.classList.remove('rotated')
 }
 var playNext = function() {
+    
     for (var i = 0; i < songName.length; i++){
         var a = informationName.innerText
         var b = songName[i].innerText
@@ -89,9 +62,9 @@ var playNext = function() {
         }
     }
 }
+
 // 播放进度实时更新(修改为歌曲播放时开启定时器，暂停和页面load时清除定时器)
-// setInterval() 方法可按照指定的周期（以毫秒计）来调用函数或计算表达式。
-var setTime = setInterval(function () {
+var updataTime = function () {
     var musicBarWidth = musicBar.clientWidth
     var playedBarWidth = (music.currentTime / music.duration) * musicBarWidth
     playedBar.style.width = playedBarWidth + 'px'
@@ -100,7 +73,7 @@ var setTime = setInterval(function () {
     if (music.currentTime === music.duration && !music.loop){
         nextIcon.click()
     }
-}, 100)
+}
 
 // 播放模式：目前只有单曲循环和列表循环
 listCircleIcon.addEventListener('click', function(event){
@@ -125,18 +98,18 @@ var timeControl = function (event) {
 
 // TODO---1.chrome不支持currentTime设置，返回0。
 
-// 音量控制
+// 音量控制，效果
 volumeIcon.addEventListener('mouseover', function(event){
-    volumeBar.classList.remove('unvisi')
+    volumeBar.classList.remove('hidden')
 })
 volumeIcon.addEventListener('mouseout', function(event){
-    volumeBar.classList.add('unvisi')
+    volumeBar.classList.add('hidden')
 })
 volumeBar.addEventListener('mouseover', function(event){
-    volumeBar.classList.remove('unvisi')
+    volumeBar.classList.remove('hidden')
 })
 volumeBar.addEventListener('mouseout', function(event){
-    volumeBar.classList.add('unvisi')
+    volumeBar.classList.add('hidden')
 })
 volumeMuteIcon.addEventListener('click', function(event){
     volumeIcon.classList.remove('hidden')
@@ -149,7 +122,7 @@ volumeIcon.addEventListener('click', function(event){
     music.muted = true
 })
 
-var voluemeControl = function (event) {
+var volumeControl = function (event) {
     var totalVolume = dqs('#id-total-volume')
     var targetWidth = totalVolume.clientWidth
     var newCurrentVolume = event.offsetX / targetWidth
@@ -179,18 +152,7 @@ bindEvent('.list-search', 'keyup', function(event){
     searchTitle(v, res)
 })
 
-var addLikeIcon = function() {
-    var likesIcon = `
-        <td class='likes'>
-            <img src="icon/like.png" class="icon-like hidden">
-            <img src="icon/unlike.png" class="icon-unlike">
-        </td>
-    `
-// 喜欢按钮（事件委托，在事先存在的父元素上绑定事件）
-    for (var i = 0; i < playLists.length; i++){
-        playLists[i].insertAdjacentHTML('afterbegin', likesIcon)
-    }
-}
+
 var likeToggle = function (event) {
     var target = event.target
     var targetParent = target.parentElement
@@ -234,54 +196,37 @@ var changeMusic = function (direct){
     musicPlay()
 }
 
-var addMusicList = function () {
-    for (var i = 0; i < musicList.length; i++) {
-        var name = musicList[i].name
-        var artist = musicList[i].artist
-        var album = musicList[i].album
-        var template =
-            `
-        <tr class="play-list-song">
-            <td class="song-name">${name}</td>
-            <td class="song-artist">${artist}</td>
-            <td class="song-album">${album}</td>
-        </tr>
-        `
-        appendHtml(dqs('tbody'), template)
-    }
-}
 
 // 初始化
-var playInitialize = function (){
-    addMusicList()
-    addLikeIcon()
+var initialize = function (){
+    initHtml()
     music.volume = 0.1
     currentVolume.style.width = '7px'
     // music.loop = true
 }
 
 var bindEvents = function () {
-    
     bindEvent('.volume-bar', 'click', function (event){
-        voluemeControl(event)
+        volumeControl(event)
     })
     
     bindEvent('.time-bar', 'click', function (event){
         timeControl(event)
     })
     // 给播放、暂停按钮绑定事件
-    playIcon.addEventListener('click', musicPlay)
-    pauseIcon.addEventListener('click', musicPause)
-    // 播放时间显示
-    // music 载入音乐需要时间, 载入完成后会触发 'canplay' 事件
-    // 所以我们在 canplay 里面设置时间
-    music.addEventListener('canplay', function(event){
+    bindEvent('#id-icon-play', 'click', function () {
+        musicPlay()
+    })
+    bindEvent('#id-icon-pause', 'click', function () {
+        musicPause()
+    })
+    bindEvent(music, 'canplay', function(event){
         totalTime.innerHTML = transTime(music.duration)
     })
-    music.addEventListener('timeupdate', function(){
+    bindEvent(music, 'timeupdate', function(event){
         currentTime.innerHTML = transTime(music.currentTime)
     })
-    music.addEventListener('ended', function (event) {
+    bindEvent(music, 'ended', function(event){
         playNext(event)
     })
     // 下一曲// 上一曲
@@ -302,7 +247,11 @@ var bindEvents = function () {
     })
 }
 var __main = function(){
+    initialize()
     bindEvents()
-    playInitialize()
+    
+    setInterval(function () {
+        updataTime()
+    }, 1000)
 }
 __main()

@@ -14,7 +14,7 @@
     top: 0%;
     width: 809px;
     height: 60px;
-    background-image: url(background.jpg);
+    background-image: url('background.jpg');
     background-size: cover;
     -webkit-filter: blur(0.1px);
             filter: blur(0.1px);
@@ -238,19 +238,17 @@ thead {
 }
 
 .hidden {
-    visibility:hidden !important;
+    visibility: hidden !important;
 }
 
 .none {
     display: none !important;
 }
 .trans{
-   -webkit-transition:all 1s ease;
-   transition:all 1s ease;
+   -webkit-transition: all 1s ease;
+   transition: all 1s ease;
 }
-.hover{ visibility:visible;}
-.unvisi{
-    visibility:hidden;
+.hover{ visibility: visible;
 }
 .rotated {
     -webkit-animation: rotated 6s linear infinite;
