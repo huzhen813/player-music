@@ -11,38 +11,37 @@ var playEvent = function() {
     bindEvent(music, 'ended', function(event){
         playNext(event)
     })
-    bindEvent(nextIcon, 'click', function (event){
+    bindEvent('#id-icon-play-forward', 'click', function (event){
         changeMusic('next')
     })
-    bindEvent(preIcon, 'click', function (event){
+    bindEvent('#id-icon-play-back', 'click', function (event){
         changeMusic('pre')
     })
-    bindEvent(playList, 'click', function(event){
+    bindEvent('.play-list', 'click', function(event){
         listClick(event)
     })
 }
 
 var cssEvent = function() {
+    
     bindEvent(music, 'canplay', function(event){
-        totalTime.innerHTML = transTime(music.duration)
+        dqs('#id-total-time').innerHTML = transTime(music.duration)
     })
     bindEvent(music, 'timeupdate', function(event){
-        currentTime.innerHTML = transTime(music.currentTime)
+        dqs('#id-current-time').innerHTML = transTime(music.currentTime)
     })
     bindEvent('.play-list', 'click', function (event) {
         likeToggle(event)
     })
     // 播放模式：目前只有单曲循环和列表循环
     bindEvent('.icon-circle', 'click', function(event){
-        toggleClass(singleCircleIcon, 'hidden')
-        toggleClass(listCircleIcon, 'hidden')
+        toggleClass('.icon-circle', 'hidden')
         music.loop = !music.loop
     })
 // TODO---1.chrome不支持currentTime设置，返回0。
 // 音量控制，效果
     bindEvent('.icon-volume', 'click', function(event){
-        toggleClass(volumeIcon, 'hidden')
-        toggleClass(volumeMuteIcon, 'hidden')
+        toggleClass('.icon-volume', 'hidden')
         music.muted = !music.muted
     })
 }
@@ -50,8 +49,7 @@ var cssEvent = function() {
 var functionEvent = function () {
     bindEvent('.play-list-head th', 'click', function (event) {
         sortTable(event)
-        var trs = dqs('tbody tr')
-        addClass(trs, 'play-list-song')
+        addClass('tbody tr', 'play-list-song')
     })
     bindEvent('.list-search', 'keyup', function(event){
         var search = event.target

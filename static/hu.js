@@ -22,11 +22,15 @@ var domLoad = function (selector, callback) {
     }, 100)
 }
 
-var toggleClass = function(element, className) {
-    if (element.classList.contains(className)) {
-        element.classList.remove(className)
-    } else {
-        element.classList.add(className)
+var toggleClass = function(selector, className) {
+    var elements = newTypeOf(selector) == 'string' ? dqs(selector) : selector
+    for (var i = 0; i < elements.length; i++) {
+        var element = elements[i]
+        if (element.classList.contains(className)) {
+            element.classList.remove(className)
+        } else {
+            element.classList.add(className)
+        }
     }
 }
 // 如果visible被设置则删除它，否则添加它
@@ -162,7 +166,8 @@ var clearEle = function(ele, selector) {
 // 还没有完成的函数，返回一个数组，包含element下所有非selector元素。没有意义
 // 目前有元素包含关系了，A.contains(B)
 // 适用于弹窗之类的东西，当点击弹窗以外的地方时，关闭弹窗
-var addClass = function(elements, className) {
+var addClass = function(selector, className) {
+    var elements = newTypeOf(selector) == 'string' ? dqs(selector) : selector
     for (var i = 0; i < elements.length; i++) {
         var e = elements[i]
         e.classList.add(className)

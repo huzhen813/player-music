@@ -13,6 +13,8 @@ var bindEvents = function () {
 }
 
 var __main = function(){
+    music = dqs('#id-music-playing')
+    
     initialize()
     bindEvents()
 

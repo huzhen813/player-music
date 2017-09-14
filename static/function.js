@@ -18,9 +18,9 @@ var findMusic = function (){
             var NextCover = "cover/" + nextMusicName + '.jpg'
             informationName.innerText = nowMusicName
             informationAuthor.innerText = nowAuthorName
-            platePast.src = pastCover
-            plateNow.src = cover
-            plateNext.src = NextCover
+            dqs('.plate-past').src = pastCover
+            dqs('.plate-now').src = cover
+            dqs('.plate-next').src = NextCover
             musicCover.src = cover
             music.src = song
             break
@@ -30,16 +30,14 @@ var findMusic = function (){
 // 音乐播放
 var musicPlay = function(){
     music.play()
-    playIcon.classList.add('hidden')
-    pauseIcon.classList.remove('hidden')
-    musicCover.classList.add('rotated')
+    toggleClass('.icon-play', 'hidden')
+    toggleClass('.music-cover', 'rotated')
 }
 // 音乐暂停
 var musicPause = function() {
     music.pause()
-    playIcon.classList.remove('hidden')
-    pauseIcon.classList.add('hidden')
-    musicCover.classList.remove('rotated')
+    toggleClass('.icon-play', 'hidden')
+    toggleClass('.music-cover', 'rotated')
 }
 var playNext = function() {
     for (var i = 0; i < songName.length; i++){
@@ -65,9 +63,10 @@ var playNext = function() {
 var updataTime = function () {
     var bili = music.currentTime / music.duration
     dqs('#id-time-bar').value = bili * 100
-    currentTime.innerHTML = transTime(music.currentTime)
+    dqs('#id-current-time').innerHTML = transTime(music.currentTime)
     //如果是时间结束，并且是非单曲循环，自动下一曲
     if (music.currentTime === music.duration && !music.loop){
+        var nextIcon = dqs('#id-icon-play-forward')
         nextIcon.click()
     }
 }
@@ -82,7 +81,8 @@ var listClick = function(event) {
         musicCover.src = cover
         music.src = song
         findMusic()
-        musicPlay()
+        music.play()
+        addClass('.music-cover', 'rotated')
     }
 }
 
