@@ -1,5 +1,4 @@
 
-// 查找音乐
 var findMusic = function (){
     for (var i = 0; i < songName.length; i++){
         var a = informationName.innerText
@@ -27,18 +26,21 @@ var findMusic = function (){
         }
     }
 }
-// 音乐播放
+
 var musicPlay = function(){
-    music.play()
-    toggleClass('.icon-play', 'hidden')
-    toggleClass('.music-cover', 'rotated')
+	addClass('hidden', '#id-icon-play')
+	removeClass('hidden', '#id-icon-pause')
+	addClass('rotated', '.music-cover')
+	music.play()
 }
-// 音乐暂停
+
 var musicPause = function() {
-    music.pause()
-    toggleClass('.icon-play', 'hidden')
-    toggleClass('.music-cover', 'rotated')
+	removeClass('hidden', '#id-icon-play')
+	addClass('hidden', '#id-icon-pause')
+	removeClass('rotated', '.music-cover')
+	music.pause()
 }
+
 var playNext = function() {
     for (var i = 0; i < songName.length; i++){
         var a = informationName.innerText
@@ -71,7 +73,6 @@ var updataTime = function () {
     }
 }
 
-// 歌曲列表点击，播放音乐
 var listClick = function(event) {
     var target = event.target
     if (target.classList.contains('song-name')){
@@ -80,9 +81,8 @@ var listClick = function(event) {
         informationName.innerText = target.innerText
         musicCover.src = cover
         music.src = song
-        findMusic()
-        music.play()
-        addClass('.music-cover', 'rotated')
+	    findMusic()
+	    musicPlay()
     }
 }
 
@@ -99,7 +99,6 @@ var likeToggle = function (event) {
 
 }
 
-// 切换歌曲，只需要找出当前music.src的值
 var changeMusic = function (direct){
     if (music.attributes["src"]){
         var currentSrcIndex = 0
@@ -128,3 +127,43 @@ var changeMusic = function (direct){
     musicPlay()
 }
 
+var playNext = function () {
+	changeMusic('next')
+}
+
+var playPre = function () {
+	changeMusic('pre')
+}
+
+var playMode = function () {
+	toggleClass('.icon-circle', 'hidden')
+	music.loop = !music.loop
+}
+
+var volMute =function () {
+	toggleClass('.icon-volume', 'hidden')
+	music.muted = !music.muted
+}
+
+var searchMusic = function (event) {
+	var search = event.target
+	var v = search.value
+	var res = dqs('tbody tr')
+	searchTitle(v, res)
+}
+
+var adjustTime = function (event) {
+	music.currentTime = music.duration * event.target.value / 100
+}
+
+var adjustVolume = function (event) {
+	music.volume = event.target.value / 100
+}
+
+var transCurrTime = function (event) {
+	dqs('#id-total-time').innerHTML = transTime(music.duration)
+}
+
+var timeupdateText = function (event) {
+	dqs('#id-current-time').innerHTML = transTime(music.currentTime)
+}

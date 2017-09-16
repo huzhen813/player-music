@@ -6,17 +6,17 @@ var initialize = function (){
     music.loop = false
 }
 
-var bindEvents = function () {
-    playEvent()
-    cssEvent()
-    functionEvent()
-}
+// var bindEvents = function () {
+//     playEvent()
+//     cssEvent()
+//     functionEvent()
+// }
 
 var __main = function(){
     music = dqs('#id-music-playing')
     
     initialize()
-    bindEvents()
+	bindAllEvents()
 
     setInterval(function () {
         updataTime()

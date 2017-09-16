@@ -4,11 +4,12 @@ var log = console.log.bind(console)
 
 // 合并dqs和dqsa，按需返回
 var dqs = function(selector) {
-    var len = document.querySelectorAll(selector).length
+	var allElements = document.querySelectorAll(selector)
+	var len = allElements.length
     if (len > 1) {
-        return document.querySelectorAll(selector)
+        return allElements
     }
-    return document.querySelector(selector)
+    return allElements[0]
 }
 
 // DOM 元素加载后的函数调用
@@ -43,6 +44,26 @@ var toggleClass = function(selector, className) {
 // var toggleClass = function (element, className, condition) {
 //     return element.classList.toggle(className, condition);
 // }
+var addClass = function(className, element) {
+	var elements = newTypeOf(element) == 'string' ? document.querySelectorAll(element) : element
+	for (var i = 0; i < elements.length; i++) {
+		var e = elements[i]
+		e.classList.add(className)
+	}
+}
+// removeClassAll增加第二个参数ele
+//ele为DOM元素
+var removeClass = function(className, element) {
+    var selector = '.' + className
+	var elements = newTypeOf(element) == 'string' ? document.querySelectorAll(element) : element
+    if (!element) {
+    	var elements = document.querySelectorAll(selector)
+    }
+    for (var i = 0; i < elements.length; i++) {
+        var e = elements[i]
+        e.classList.remove(className)
+    }
+}
 
 // 判断字符串是否是数字
 var isNum = function(s) {
@@ -166,27 +187,7 @@ var clearEle = function(ele, selector) {
 // 还没有完成的函数，返回一个数组，包含element下所有非selector元素。没有意义
 // 目前有元素包含关系了，A.contains(B)
 // 适用于弹窗之类的东西，当点击弹窗以外的地方时，关闭弹窗
-var addClass = function(selector, className) {
-    var elements = newTypeOf(selector) == 'string' ? dqs(selector) : selector
-    for (var i = 0; i < elements.length; i++) {
-        var e = elements[i]
-        e.classList.add(className)
-    }
-}
-// removeClassAll增加第二个参数ele
-//ele为DOM元素
-var removeClass = function(className, ele) {
-    var selector = '.' + className
-    if (ele) {
-        var elements = ele.querySelectorAll(selector)
-    } else {
-        var elements = document.querySelectorAll(selector)
-    }
-    for (var i = 0; i < elements.length; i++) {
-        var e = elements[i]
-        e.classList.remove(className)
-    }
-}
+
 // 事件绑定，selector可以是选择器或者DOM
 var bindEvent = function(selector, eventName, callback) {
     var elements = newTypeOf(selector) == 'string' ? dqs(selector) : selector
@@ -456,10 +457,9 @@ var sortTable = function(event) {
     }
     // 删除所有tbody的子元素
     var tbody = table.querySelector('tbody');
-    var tr = table.querySelector('tr');
     clearEle(tbody, 'tr')
     for (var j = 0; j < rows.length; j++) {
-        appendHtml(tbody, rows[j].innerHTML)
+        appendHtml(tbody, rows[j].outerHTML)
     }
 }
 
