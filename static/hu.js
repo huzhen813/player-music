@@ -22,17 +22,27 @@ var domLoad = function (selector, callback) {
         }
     }, 100)
 }
-
-var toggleClass = function(selector, className) {
+//todo , 需要改写所有关于dqs函数，因为dqs选中的是单个元素时，是没有length的。
+var toggleClass = function(className, selector) {
     var elements = newTypeOf(selector) == 'string' ? dqs(selector) : selector
-    for (var i = 0; i < elements.length; i++) {
-        var element = elements[i]
-        if (element.classList.contains(className)) {
-            element.classList.remove(className)
-        } else {
-            element.classList.add(className)
-        }
+	console.log('toggleClass', selector, elements);
+    if (elements.length > 1) {
+	    for (var i = 0; i < elements.length; i++) {
+		    var element = elements[i]
+		    if (element.classList.contains(className)) {
+			    element.classList.remove(className)
+		    } else {
+			    element.classList.add(className)
+		    }
+	    }
+    } else {
+	    if (elements.classList.contains(className)) {
+		    elements.classList.remove(className)
+	    } else {
+		    elements.classList.add(className)
+	    }
     }
+
 }
 // 如果visible被设置则删除它，否则添加它
 // div.classList.toggle("visible");

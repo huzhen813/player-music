@@ -5,11 +5,11 @@ var bindAllEvents = function() {
 		'#id-icon-pause'       : musicPause,
 		'#id-icon-play-next': playNext,
 		'#id-icon-play-pre': playPre,
-		'.play-list'           : likeToggle,
 		'.play-list'           : listClick,
 		'.icon-circle'         : playMode,
 		'.icon-volume'         : volMute,
 		'.play-list-head th'   : sortTable,
+		'.likes': likeToggle,
 	}
 	let keyupEvents = {
 		'.list-search': searchMusic,

@@ -82,10 +82,9 @@ var likeToggle = function (event) {
     if (condition) {
         var likeIcon = findElement(targetParent, '.icon-like')
         var unlikeIcon = findElement(targetParent, '.icon-unlike')
-        toggleClass(likeIcon, 'hidden')
-        toggleClass(unlikeIcon, 'hidden')
+        toggleClass('hidden', likeIcon)
+        toggleClass('hidden', unlikeIcon)
     }
-
 }
 
 var changeMusic = function (direct){
