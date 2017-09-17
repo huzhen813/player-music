@@ -1,15 +1,14 @@
-
-var bindAllEvents = function() {
+var bindAllEvents = function () {
 	let clickEvents = {
-		'#id-icon-play'        : musicPlay,
-		'#id-icon-pause'       : musicPause,
+        '#id-icon-play'     : musicPlay,
+        '#id-icon-pause'    : musicPause,
 		'#id-icon-play-next': playNext,
-		'#id-icon-play-pre': playPre,
-		'.play-list'           : listClick,
-		'.icon-circle'         : playMode,
-		'.icon-volume'         : volMute,
-		'.play-list-head th'   : sortTable,
-		'.likes': likeToggle,
+        '#id-icon-play-pre' : playPre,
+        '.play-list'        : listClick,
+        '.icon-circle'      : playMode,
+        '.icon-volume'      : volMute,
+        '.play-list-head th': sortTable,
+        '.likes'            : likeToggle,
 	}
 	let keyupEvents = {
 		'.list-search': searchMusic,

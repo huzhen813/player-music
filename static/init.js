@@ -1,5 +1,6 @@
 
 var addMusicList = function () {
+    var allDom = ''
     for (var i = 0; i < musicList.length; i++) {
     	var m = musicList[i]
         var name = m.name
@@ -17,8 +18,9 @@ var addMusicList = function () {
                 <td class="song-album">${album}</td>
             </tr>
             `
-        appendHtml(dqs('tbody'), template)
+        var allDom = allDom + template
     }
+    appendHtml(dqs('tbody'), allDom)
 }
 
 var initHtml =function () {
