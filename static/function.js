@@ -1,30 +1,40 @@
 
-var findMusic = function (){
+var findMusicNum = function (){
     for (var i = 0; i < songName.length; i++){
         var a = informationName.innerText
         var b = songName[i].innerText
         if (b == a){
-            var currentMusicIndex = i % songName.length
-            var pastMusicIndex = (currentMusicIndex - 1 + songName.length) % songName.length
-            var nextMusicIndex = (currentMusicIndex + 1) % songName.length
-            var pastMusicName = songName[pastMusicIndex].innerText
-            var nextMusicName = songName[nextMusicIndex].innerText
-            var nowMusicName = songName[currentMusicIndex].innerText
-            var nowAuthorName = songArtist[currentMusicIndex].innerText
-            var song = "music/" + nowMusicName + '.mp3'
-            var cover = "cover/" + nowMusicName + '.jpg'
-            var pastCover = "cover/" + pastMusicName + '.jpg'
-            var NextCover = "cover/" + nextMusicName + '.jpg'
-            informationName.innerText = nowMusicName
-            informationAuthor.innerText = nowAuthorName
-            dqs('.plate-past').src = pastCover
-            dqs('.plate-now').src = cover
-            dqs('.plate-next').src = NextCover
-            musicCover.src = cover
-            music.src = song
-            break
+            return i
         }
     }
+}
+var changePlayModel = function (num) {
+
+}
+var findMusic = function (playMode){
+	var mode = playMode ? playMode : 1
+	
+	var songNum = songName.length
+	var currentMusicIndex = findMusicNum()
+	
+	var pastMusicIndex = (currentMusicIndex - mode + songNum) % songNum
+	var nextMusicIndex = (currentMusicIndex + mode) % songNum
+	
+	var pastMusicName = songName[pastMusicIndex].innerText
+	var nextMusicName = songName[nextMusicIndex].innerText
+	var nowMusicName = songName[currentMusicIndex].innerText
+	var nowAuthorName = songArtist[currentMusicIndex].innerText
+	
+	var coverPath = "cover/" + nowMusicName + '.jpg'
+	var pastCoverPath = "cover/" + pastMusicName + '.jpg'
+	var NextCoverPath = "cover/" + nextMusicName + '.jpg'
+	
+	informationName.innerText = nowMusicName
+	informationAuthor.innerText = nowAuthorName
+	
+	dqs('.plate-past').src = pastCoverPath
+	dqs('.plate-now').src = coverPath
+	dqs('.plate-next').src = NextCoverPath
 }
 
 var musicPlay = function(){
@@ -41,34 +51,13 @@ var musicPause = function() {
 	music.pause()
 }
 
-var playNext = function() {
-    for (var i = 0; i < songName.length; i++){
-        var a = informationName.innerText
-        var b = songName[i].innerText
-        if (a == b){
-            // 在此处设置播放结束后下一曲的序号
-            // 可以设置音乐循环模式,将orderLoop的计算方式更换一下即可
-            var orderLoop = (i + 1) % songName.length
-            var f = songName[orderLoop].innerText
-            var song = "music/" + f + '.mp3'
-            var cover = "cover/" + f + '.jpg'
-            informationName.innerText = f
-            musicCover.src = cover
-            music.src = song
-            findMusic()
-            musicPlay()
-            break
-        }
-    }
-}
-
-var updataTime = function () {
+var updataTime = function (event) {
     var bili = music.currentTime / music.duration
     dqs('#id-time-bar').value = bili * 100
     dqs('#id-current-time').innerHTML = transTime(music.currentTime)
     //如果是时间结束，并且是非单曲循环，自动下一曲
     if (music.currentTime === music.duration && !music.loop){
-        var nextIcon = dqs('#id-icon-play-forward')
+        var nextIcon = dqs('#id-icon-play-next')
         nextIcon.click()
     }
 }
@@ -100,22 +89,11 @@ var likeToggle = function (event) {
 }
 
 var changeMusic = function (direct){
-    if (music.attributes["src"]){
-        var currentSrcIndex = 0
-    } else {
-        for (var i = 0; i < songName.length; i++){
-            var b = informationName.innerText
-            var c = songName[i].innerText
-            if (c == b){
-                var currentSrcIndex = i % songName.length
-                break
-            }
-        }
-    }
-    if (direct === 'next'){
+	var currentSrcIndex = findMusicNum()
+    if (direct == 'next'){
         var currentSrcIndex = (currentSrcIndex + 1) % songName.length
     } else {
-        var currentSrcIndex = (currentSrcIndex - 1 + songName.length * 100) % songName.length
+	    var currentSrcIndex = (songName.length * 100 + currentSrcIndex - 1) % songName.length
     }
     var f = songName[currentSrcIndex].innerText
     var song = "music/" + f + '.mp3'
@@ -127,20 +105,30 @@ var changeMusic = function (direct){
     musicPlay()
 }
 
-var playNext = function () {
+var playNext  = function (event) {
 	changeMusic('next')
 }
 
-var playPre = function () {
+var playPre = function (event) {
 	changeMusic('pre')
 }
 
-var playMode = function () {
+var playMode = function (event) {
+	var songNum = songName.length
+	var randomMode = randomBetween(0, songNum)
+	var allMode = {
+		loop: 0,
+		circle: 1,
+		random: randomMode,
+		order: songNum
+	}
+	// mode可以是存储在文件或者HTML的DOM中的某个值。
+	musicMode = allMode['loop']
 	toggleClass('.icon-circle', 'hidden')
 	music.loop = !music.loop
 }
 
-var volMute =function () {
+var volMute =function (event) {
 	toggleClass('.icon-volume', 'hidden')
 	music.muted = !music.muted
 }

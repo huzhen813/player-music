@@ -128,7 +128,7 @@ thead {
     height: 65px;
 }
 .information-author {
-    bottom: -20px;
+    bottom: -10px;
     height: 60px;
 }
 .play-timeBar{
@@ -164,7 +164,7 @@ thead {
 #id-total-time {
     left: 400px;
 }
-#id-icon-play,#id-icon-pause,#id-icon-play-back,#id-icon-singlecircle,#id-icon-play-forward,#id-icon-volume,#id-icon-listcircle,#id-icon-volume-mute{
+#id-icon-play,#id-icon-pause,#id-icon-play-pre,#id-icon-singlecircle,#id-icon-play-next,#id-icon-volume,#id-icon-listcircle,#id-icon-volume-mute{
     position: absolute;
     display: inline-block;
     width: 30px;
@@ -194,11 +194,11 @@ thead {
     bottom: 9px;
     right: 200px;
 }
-#id-icon-play-back{
+#id-icon-play-pre{
     bottom: 9px;
     right: 250px;
 }
-#id-icon-play-forward{
+#id-icon-play-next{
     bottom: 9px;
     right: 150px;
 }
@@ -222,7 +222,7 @@ thead {
     -webkit-transition: all 0.3s;
     transition: all 0.3s;
 }
-#id-icon-pause,#id-icon-play,#id-icon-play-back,#id-icon-play-forward {
+#id-icon-pause,#id-icon-play,#id-icon-play-pre,#id-icon-play-next {
         cursor: pointer;
 }
 #id-played-bar,#id-time-bar,.song-name,.icon-unlike,.icon-like {

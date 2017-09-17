@@ -14,7 +14,7 @@ var initialize = function (){
 
 var __main = function(){
     music = dqs('#id-music-playing')
-    
+    // TODO，给每个DOM添加src
     initialize()
 	bindAllEvents()
 
