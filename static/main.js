@@ -12,7 +12,7 @@ var __main = function () {
     
     setInterval(function () {
         updataTime()
-    }, 100)
+    }, 1000)
 }
 
 __main()

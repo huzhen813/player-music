@@ -7,47 +7,49 @@ var findMusicNum = function () {
         }
     }
 }
+
 var changePlayModel = function (num) {
 
 }
+
 var findMusic = function (playMode) {
-	var mode = playMode ? playMode : 1
-	
-	var songNum = songName.length
-	var currentMusicIndex = findMusicNum()
-	
-	var pastMusicIndex = (currentMusicIndex - mode + songNum) % songNum
-	var nextMusicIndex = (currentMusicIndex + mode) % songNum
-	
-	var pastMusicName = songName[pastMusicIndex].innerText
-	var nextMusicName = songName[nextMusicIndex].innerText
-	var nowMusicName = songName[currentMusicIndex].innerText
-	var nowAuthorName = songArtist[currentMusicIndex].innerText
+    var mode = playMode ? playMode : 1
+    
+    var songNum = songName.length
+    var currentMusicIndex = findMusicNum()
+    
+    var pastMusicIndex = (currentMusicIndex - mode + songNum) % songNum
+    var nextMusicIndex = (currentMusicIndex + mode) % songNum
+    
+    var pastMusicName = songName[pastMusicIndex].innerText
+    var nextMusicName = songName[nextMusicIndex].innerText
+    var nowMusicName = songName[currentMusicIndex].innerText
+    var nowAuthorName = songArtist[currentMusicIndex].innerText
     
     var coverPath = 'cover/' + nowMusicName + '.jpg'
     var pastCoverPath = 'cover/' + pastMusicName + '.jpg'
     var NextCoverPath = 'cover/' + nextMusicName + '.jpg'
-	
-	informationName.innerText = nowMusicName
-	informationAuthor.innerText = nowAuthorName
-	
-	dqs('.plate-past').src = pastCoverPath
-	dqs('.plate-now').src = coverPath
-	dqs('.plate-next').src = NextCoverPath
+    
+    informationName.innerText = nowMusicName
+    informationAuthor.innerText = nowAuthorName
+    
+    dqs('.plate-past').src = pastCoverPath
+    dqs('.plate-now').src = coverPath
+    dqs('.plate-next').src = NextCoverPath
 }
 
 var musicPlay = function () {
-	addClass('hidden', '#id-icon-play')
-	removeClass('hidden', '#id-icon-pause')
-	addClass('rotated', '.music-cover')
-	music.play()
+    addClass('hidden', '#id-icon-play')
+    removeClass('hidden', '#id-icon-pause')
+    addClass('rotated', '.music-cover')
+    music.play()
 }
 
 var musicPause = function () {
-	removeClass('hidden', '#id-icon-play')
-	addClass('hidden', '#id-icon-pause')
-	removeClass('rotated', '.music-cover')
-	music.pause()
+    removeClass('hidden', '#id-icon-play')
+    addClass('hidden', '#id-icon-pause')
+    removeClass('rotated', '.music-cover')
+    music.pause()
 }
 
 var updataTime = function (event) {
@@ -87,7 +89,7 @@ var likeToggle = function (event) {
 }
 
 var changeMusic = function (direct) {
-	var currentSrcIndex = findMusicNum()
+    var currentSrcIndex = findMusicNum()
     if (direct == 'next') {
         var currentSrcIndex = (currentSrcIndex + 1) % songName.length
     } else {
@@ -104,52 +106,52 @@ var changeMusic = function (direct) {
 }
 
 var playNext = function (event) {
-	changeMusic('next')
+    changeMusic('next')
 }
 
 var playPre = function (event) {
-	changeMusic('pre')
+    changeMusic('pre')
 }
 
 var playMode = function (event) {
-	var songNum = songName.length
-	var randomMode = randomBetween(0, songNum)
-	var allMode = {
+    var songNum = songName.length
+    var randomMode = randomBetween(0, songNum)
+    var allMode = {
         loop  : 0,
-		circle: 1,
-		random: randomMode,
-        order : songNum
-	}
-	// mode可以是存储在文件或者HTML的DOM中的某个值。
-	musicMode = allMode['loop']
-	toggleClass('.icon-circle', 'hidden')
-	music.loop = !music.loop
+        circle: 1,
+        random: randomMode,
+        order : songNum,
+    }
+    // mode可以是存储在文件或者HTML的DOM中的某个值。
+    musicMode = allMode['loop']
+    toggleClass('hidden', '.icon-circle')
+    music.loop = !music.loop
 }
 
 var volMute = function (event) {
-	toggleClass('.icon-volume', 'hidden')
-	music.muted = !music.muted
+    toggleClass('hidden', '.icon-volume')
+    music.muted = !music.muted
 }
 
 var searchMusic = function (event) {
-	var search = event.target
-	var v = search.value
-	var res = dqs('tbody tr')
-	searchTitle(v, res)
+    var search = event.target
+    var v = search.value
+    var res = dqs('tbody tr')
+    searchTitle(v, res)
 }
 
 var adjustTime = function (event) {
-	music.currentTime = music.duration * event.target.value / 100
+    music.currentTime = music.duration * event.target.value / 100
 }
 
 var adjustVolume = function (event) {
-	music.volume = event.target.value / 100
+    music.volume = event.target.value / 100
 }
 
 var transCurrTime = function (event) {
-	dqs('#id-total-time').innerHTML = transTime(music.duration)
+    dqs('#id-total-time').innerHTML = transTime(music.duration)
 }
 
 var timeupdateText = function (event) {
-	dqs('#id-current-time').innerHTML = transTime(music.currentTime)
+    dqs('#id-current-time').innerHTML = transTime(music.currentTime)
 }

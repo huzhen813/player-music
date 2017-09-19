@@ -417,15 +417,23 @@ thead {
     cursor: pointer;
     height: 6.9px;
 }
-#id-time-bar:focus::-ms-fill-lower {
-    background: rgba(112, 97, 57, 0.81);
-}
-#id-time-bar:focus::-ms-fill-upper {
-    background: rgba(122, 106, 62, 0.81);
-}
+
 #id-volume-bar {
     width: 70px;
     position: absolute;
     right: 10px;
     bottom: 12px;
+}
+
+input[type=range]::-ms-fill-lower {
+	/*进度条已填充的部分*/
+	border-radius: 10px;
+	background: linear-gradient(to right, #059CFA, white 100%, white);
+}
+
+/*#id-time-bar:focus::-ms-fill-lower {*/
+/*background: rgba(112, 97, 57, 0.81);*/
+/*}*/
+#id-time-bar:focus::-ms-fill-upper {
+	background: red;
 }

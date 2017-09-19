@@ -1,12 +1,12 @@
-// 基本函数定义，对所有的函数进行分类，
+// todo,基本函数定义，对所有的函数进行分类，
 // array， object， string ，number， dom， 基本
 var log = console.log.bind(console)
 
 // 合并dqs和dqsa，按需返回
 var dqs = function(selector) {
 	var allElements = document.querySelectorAll(selector)
-	var len = allElements.length
-    if (len > 1) {
+    var l = allElements.length
+    if (l > 1) {
         return allElements
     }
     return allElements[0]
@@ -22,27 +22,39 @@ var domLoad = function (selector, callback) {
         }
     }, 100)
 }
-//todo , 需要改写所有关于dqs函数，因为dqs选中的是单个元素时，是没有length的。
-var toggleClass = function(className, selector) {
-    var elements = newTypeOf(selector) == 'string' ? dqs(selector) : selector
-	console.log('toggleClass', selector, elements);
-    if (elements.length > 1) {
-	    for (var i = 0; i < elements.length; i++) {
-		    var element = elements[i]
-		    if (element.classList.contains(className)) {
-			    element.classList.remove(className)
-		    } else {
-			    element.classList.add(className)
-		    }
-	    }
-    } else {
-	    if (elements.classList.contains(className)) {
-		    elements.classList.remove(className)
-	    } else {
-		    elements.classList.add(className)
-	    }
-    }
 
+var addClass = function (className, selector) {
+    var elements = newTypeOf(selector) == 'string' ? dqs(selector) : selector
+    var elements = elements.length ? elements : [elements]
+    for (var i = 0; i < elements.length; i++) {
+        var e = elements[i]
+        e.classList.add(className)
+    }
+}
+
+var removeClass = function (className, selector) {
+    var sel = '.' + className
+    var elements = dqs(sel)
+    if (selector) {
+        var elements = newTypeOf(selector) == 'string' ? dqs(selector) : selector
+    }
+    var elements = elements.length ? elements : [elements]
+    for (var i = 0; i < elements.length; i++) {
+        var e = elements[i]
+        e.classList.remove(className)
+    }
+}
+
+var toggleClass = function (className, selector) {
+    var elements = newTypeOf(selector) == 'string' ? dqs(selector) : selector
+    var elements = elements.length ? elements : [elements]
+    for (var e of elements) {
+        if (e.classList.contains(className)) {
+            e.classList.remove(className)
+        } else {
+            e.classList.add(className)
+        }
+    }
 }
 // 如果visible被设置则删除它，否则添加它
 // div.classList.toggle("visible");
@@ -54,26 +66,6 @@ var toggleClass = function(className, selector) {
 // var toggleClass = function (element, className, condition) {
 //     return element.classList.toggle(className, condition);
 // }
-var addClass = function(className, element) {
-	var elements = newTypeOf(element) == 'string' ? document.querySelectorAll(element) : element
-	for (var i = 0; i < elements.length; i++) {
-		var e = elements[i]
-		e.classList.add(className)
-	}
-}
-// removeClassAll增加第二个参数ele
-//ele为DOM元素
-var removeClass = function(className, element) {
-    var selector = '.' + className
-	var elements = newTypeOf(element) == 'string' ? document.querySelectorAll(element) : element
-    if (!element) {
-    	var elements = document.querySelectorAll(selector)
-    }
-    for (var i = 0; i < elements.length; i++) {
-        var e = elements[i]
-        e.classList.remove(className)
-    }
-}
 
 // 判断字符串是否是数字
 var isNum = function(s) {
@@ -82,6 +74,7 @@ var isNum = function(s) {
     }
     return false;
 }
+
 // 对一些number 补零，js不支持1 < arg < 10
 var addZero = function(arg) {
     if (arg >= 0 && arg < 10) {
@@ -129,7 +122,6 @@ var nowTime = function() {
 }
 
 // 在a~b之间生成随机整a数
-// generate
 var randomBetween = function(start, end) {
 	var n = Math.random() * (end - start + 1)
 	return Math.floor(n + start)
@@ -201,14 +193,10 @@ var clearEle = function(ele, selector) {
 // 事件绑定，selector可以是选择器或者DOM
 var bindEvent = function(selector, eventName, callback) {
     var elements = newTypeOf(selector) == 'string' ? dqs(selector) : selector
-    if (elements.length > 1) {
-        for (var i = 0; i < elements.length; i++) {
-            var e = elements[i]
-            e.addEventListener(eventName, callback)
-        }
-    } else {
-        var ele = elements[0] || elements
-        ele.addEventListener(eventName, callback)
+    var elements = elements.length ? elements : [elements]
+    for (var i = 0; i < elements.length; i++) {
+        var e = elements[i]
+        e.addEventListener(eventName, callback)
     }
 }
 
