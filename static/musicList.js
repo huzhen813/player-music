@@ -1,6 +1,4 @@
-/**
- * Created by yongzhi on 2017/9/13.
- */
+
 var musicList = [
     {
         name: '成都',
@@ -149,3 +147,7 @@ var musicList = [
         album: 'Beyond Reality',
     },
     ]
+
+var musicListJson = []
+var listJson = JSON.stringify(musicList)
+localStorage.list = listJson

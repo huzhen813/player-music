@@ -16,15 +16,15 @@ var findMusic = function (playMode) {
     var mode = playMode ? playMode : 1
     
     var songNum = songName.length
-    var currentMusicIndex = findMusicNum()
+    var index = findMusicNum()
     
-    var pastMusicIndex = (currentMusicIndex - mode + songNum) % songNum
-    var nextMusicIndex = (currentMusicIndex + mode) % songNum
+    var pastMusicIndex = (index == 0) ? 1 : (index - mode ) % songNum
+    var nextMusicIndex = (index + mode) % songNum
     
     var pastMusicName = songName[pastMusicIndex].innerText
     var nextMusicName = songName[nextMusicIndex].innerText
-    var nowMusicName = songName[currentMusicIndex].innerText
-    var nowAuthorName = songArtist[currentMusicIndex].innerText
+    var nowMusicName = songName[index].innerText
+    var nowAuthorName = songArtist[index].innerText
     
     var coverPath = 'cover/' + nowMusicName + '.jpg'
     var pastCoverPath = 'cover/' + pastMusicName + '.jpg'
@@ -75,7 +75,7 @@ var listClick = function (event) {
         musicPlay()
     }
 }
-
+//TODO，使用localstorage存储like的状态
 var likeToggle = function (event) {
     var target = event.target
     var targetParent = target.parentElement
@@ -89,13 +89,13 @@ var likeToggle = function (event) {
 }
 
 var changeMusic = function (direct) {
-    var currentSrcIndex = findMusicNum()
+    var index = findMusicNum()
     if (direct == 'next') {
-        var currentSrcIndex = (currentSrcIndex + 1) % songName.length
+        var index = (index + 1) % songName.length
     } else {
-        var currentSrcIndex = (songName.length * 100 + currentSrcIndex - 1) % songName.length
+        var index = (songName.length * 100 + index - 1) % songName.length
     }
-    var f = songName[currentSrcIndex].innerText
+    var f = songName[index].innerText
     var song = 'music/' + f + '.mp3'
     var cover = 'cover/' + f + '.jpg'
     informationName.innerText = f
