@@ -9,8 +9,6 @@ var addMusicList = function () {
             <tr class="play-list-song">
 	            <td class='likes'>
 	                <i class="iconfont icon-like">&#xe666;</i>
-		            <!--<img src="icon/like.png" class="icon-like hidden">-->
-		            <!--<img src="icon/unlike.png" class="icon-unlike">-->
 		        </td>
                 <td class="song-name">${name}</td>
                 <td class="song-artist">${artist}</td>

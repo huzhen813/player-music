@@ -380,6 +380,9 @@ thead {
 	left: 8px;
 }
 
+.icon-like-red {
+	color: red;
+}
 .song-name {
 	overflow: hidden;
 	left: 6%;

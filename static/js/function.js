@@ -78,13 +78,9 @@ var listClick = function (event) {
 //TODO，使用localstorage存储like的状态
 var likeToggle = function (event) {
     var target = event.target
-    var targetParent = target.parentElement
-    var condition = targetParent.classList.contains('likes')
+    var condition = target.classList.contains('icon-like')
     if (condition) {
-        var likeIcon = findElement(targetParent, '.icon-like')
-        var unlikeIcon = findElement(targetParent, '.icon-unlike')
-        toggleClass('hidden', likeIcon)
-        toggleClass('hidden', unlikeIcon)
+        toggleClass('icon-like-red', target)
     }
 }
 
