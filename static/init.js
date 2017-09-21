@@ -8,7 +8,7 @@ var addMusicList = function () {
         var template =
             `
             <tr class="play-list-song">
-	            <td class='likes ${status}'>
+	            <td class='likes'>
 		            <img src="icon/like.png" class="icon-like hidden">
 		            <img src="icon/unlike.png" class="icon-unlike">
 		        </td>
