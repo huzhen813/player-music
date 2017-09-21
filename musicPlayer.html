@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
     <title>音乐播放器</title>
-    <link href="static/audio.css" rel="stylesheet">
-    <script src='static/hu.js'></script>
-    <script src="static/musicList.js"></script>
+	<link href="static/css/audio.css" rel="stylesheet">
+	<script src='static/js/hu.js'></script>
+	<script src="static/js/musicList.js"></script>
 </head>
 
 <body>
@@ -47,14 +47,23 @@
             </div>
             <!-- 播放控制 -->
             <div class="play-control">
-                <img src="icon/淡色/播放.png" id="id-icon-play" class="icon-play">
-                <img src="icon/淡色/暂停.png" id="id-icon-pause" class="hidden icon-play">
-                <img src="icon/淡色/上一首.png" id="id-icon-play-pre">
-                <img src="icon/淡色/下一首.png" id="id-icon-play-next">
-                <img src="icon/淡色/音量.svg" id="id-icon-volume" class="icon-volume">
-                <img src="icon/淡色/静音.svg" id="id-icon-volume-mute" class="hidden icon-volume">
-                <img src="icon/淡色/列表循环.png" id="id-icon-listcircle" class="icon-circle">
-                <img src="icon/淡色/单曲循环.png" id="id-icon-singlecircle" class="hidden icon-circle">
+	            <i class="iconfont icon-play" id="id-icon-play">&#xe602;</i>
+	            <i class="iconfont hidden icon-play" id="id-icon-pause">&#xe620;</i>
+	            <i id="id-icon-play-pre" class="iconfont">&#xe644;</i>
+	            <i id="id-icon-play-next" class="iconfont">&#xe617;</i>
+	            <i id="id-icon-volume" class="icon-volume iconfont">&#xe627;</i>
+	            <i id="id-icon-volume-mute" class="hidden icon-volume iconfont">&#xe871;</i>
+	            <i id="id-icon-listcircle" class="icon-circle iconfont">&#xe630;</i>
+	            <i id="id-icon-singlecircle" class="hidden icon-circle iconfont">&#xe603;</i>
+
+	            <!--<img src="icon/淡色/播放.png" id="id-icon-play" class="icon-play">-->
+	            <!--<img src="icon/淡色/暂停.png" id="id-icon-pause" class="hidden icon-play">-->
+	            <!--<img src="icon/淡色/上一首.png" id="id-icon-play-pre">-->
+	            <!--<img src="icon/淡色/下一首.png" id="id-icon-play-next">-->
+	            <!--<img src="icon/淡色/音量.svg" id="id-icon-volume" class="icon-volume">-->
+	            <!--<img src="icon/淡色/静音.svg" id="id-icon-volume-mute" class="hidden icon-volume">-->
+	            <!--<img src="icon/淡色/列表循环.png" id="id-icon-listcircle" class="icon-circle">-->
+	            <!--<img src="icon/淡色/单曲循环.png" id="id-icon-singlecircle" class="hidden icon-circle">-->
                 <input type="range" id="id-volume-bar" value="10">
             </div>
         </div>
@@ -80,11 +89,11 @@
         </table>
     </div>
 </div>
-<script src="static/init.js"></script>
-<script src="static/dom.js"></script>
-<script src="static/function.js"></script>
-<script src="static/events.js"></script>
-<script src="static/main.js"></script>
+<script src="static/js/init.js"></script>
+<script src="static/js/dom.js"></script>
+<script src="static/js/function.js"></script>
+<script src="static/js/events.js"></script>
+<script src="static/js/main.js"></script>
 </body>
 
 </html>

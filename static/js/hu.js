@@ -3,8 +3,8 @@
 var log = console.log.bind(console)
 
 // 合并dqs和dqsa，按需返回
-var dqs = function(selector) {
-	var allElements = document.querySelectorAll(selector)
+var dqs = function (selector) {
+    var allElements = document.querySelectorAll(selector)
     var l = allElements.length
     if (l > 1) {
         return allElements
@@ -15,7 +15,7 @@ var dqs = function(selector) {
 // DOM 元素加载后的函数调用
 var domLoad = function (selector, callback) {
     var intervalNum = setInterval(function () {
-        var ele = dqs(selector);
+        var ele = dqs(selector)
         if (ele) {
             callback()
             clearInterval(intervalNum)
@@ -68,15 +68,15 @@ var toggleClass = function (className, selector) {
 // }
 
 // 判断字符串是否是数字
-var isNum = function(s) {
-    if (s != null && s != "") {
-        return !isNaN(s);
+var isNum = function (s) {
+    if (s != null && s != '') {
+        return !isNaN(s)
     }
-    return false;
+    return false
 }
 
 // 对一些number 补零，js不支持1 < arg < 10
-var addZero = function(arg) {
+var addZero = function (arg) {
     if (arg >= 0 && arg < 10) {
         arg = '0' + arg
     }
@@ -84,7 +84,7 @@ var addZero = function(arg) {
 }
 
 // 把秒（153.54）转换成时间格式02:33
-var transTime = function(time) {
+var transTime = function (time) {
     var minute = parseInt(time / 60)
     var second = parseInt(time % 60)
     // 补零
@@ -96,7 +96,7 @@ var transTime = function(time) {
     } else {
         var hour = parseInt(minute / 60)
         var minute = parseInt(minute % 60)
-
+        
         var minute = addZero(minute)
         var hour = addZero(hour)
         var t = `${hour}:${minute}:${second}`
@@ -107,7 +107,7 @@ var transTime = function(time) {
 // 当前时间的转换
 // new Date()返回的时间格式如下
 // Tue Jun 13 2017 14:27:59 GMT+0800 (中国标准时间)
-var nowTime = function() {
+var nowTime = function () {
     var d = new Date()
     var year = d.getFullYear()
     var month = d.getMonth() + 1
@@ -117,18 +117,18 @@ var nowTime = function() {
     var min = d.getMinutes()
     var sec = d.getSeconds()
     var sec = addZero(sec)
-
+    
     return `${year}/${month}/${day} ${hour}:${min}:${sec}`
 }
 
 // 在a~b之间生成随机整a数
-var randomBetween = function(start, end) {
-	var n = Math.random() * (end - start + 1)
-	return Math.floor(n + start)
+var randomBetween = function (start, end) {
+    var n = Math.random() * (end - start + 1)
+    return Math.floor(n + start)
 }
 
 // 使用函数检查一个数字是否是奇数（奇数对2取余数不等于0）
-var isOdd = function(n) {
+var isOdd = function (n) {
     if (n % 2 != 0) {
         return true
     } else {
@@ -137,19 +137,19 @@ var isOdd = function(n) {
 }
 
 // 用于测试的套路
-var ensure = function(condition, message) {
+var ensure = function (condition, message) {
     if (!condition) {
         console.log(message)
     }
 }
 
 // 在该元素的最后添加子元素
-var appendHtml = function(element, html) {
+var appendHtml = function (element, html) {
     element.insertAdjacentHTML('beforeend', html)
 }
 
 // find 函数可以查找 element 的所有子元素
-var findElement = function(element, selector) {
+var findElement = function (element, selector) {
     var len = element.querySelectorAll(selector).length
     if (len > 1) {
         return element.querySelectorAll(selector)
@@ -158,7 +158,7 @@ var findElement = function(element, selector) {
 }
 
 // 查找target在兄弟元素的序号
-var eleIndex = function(event) {
+var eleIndex = function (event) {
     var target = event.target
     // 确认点击的是第几个index
     var targetAll = target.parentElement.children
@@ -173,11 +173,11 @@ var eleIndex = function(event) {
 
 // 当无selector参数时，删除ele的所有子元素
 // 有时，删除ele下的含有selector的所有子元素
-var clearEle = function(ele, selector) {
+var clearEle = function (ele, selector) {
     var eleSel = ele.querySelector(selector)
     if (eleSel == null) {
         while (ele.firstChild) {
-            ele.removeChild(ele.firstChild);
+            ele.removeChild(ele.firstChild)
         }
     } else {
         var eleSel = ele.querySelectorAll(selector)
@@ -191,7 +191,7 @@ var clearEle = function(ele, selector) {
 // 适用于弹窗之类的东西，当点击弹窗以外的地方时，关闭弹窗
 
 // 事件绑定，selector可以是选择器或者DOM
-var bindEvent = function(selector, eventName, callback) {
+var bindEvent = function (selector, eventName, callback) {
     var elements = newTypeOf(selector) == 'string' ? dqs(selector) : selector
     var elements = elements.length ? elements : [elements]
     for (var i = 0; i < elements.length; i++) {
@@ -229,17 +229,17 @@ var searchTitle = function (val, resultDom) {
 //         console.log('添加成功');
 //     }
 // }
-var ajax = function(request) {
+var ajax = function (request) {
     // 二元选择，如果request.method为false、null、NaN、0、空字符串（""）、undefined;
     // 此时选择 || 后边的。
-    var method = request.method || "GET"
+    var method = request.method || 'GET'
     var url = baseUrl + request.path
     var contentType = request.contentType || 'application/json'
-    var data = JSON.stringify(request.data) || '';
-
+    var data = JSON.stringify(request.data) || ''
+    
     var callback = function () {
         if (!request.callback) {
-            console.log('请求成功，PS:没有设置callback');
+            console.log('请求成功，PS:没有设置callback')
         } else {
             request.callback(r)
         }
@@ -250,8 +250,8 @@ var ajax = function(request) {
     // 设置发送的数据的格式
     r.setRequestHeader('Content-Type', contentType)
     // 注册响应函数
-    r.onreadystatechange = function() {
-        if(r.readyState === 4) {
+    r.onreadystatechange = function () {
+        if (r.readyState === 4) {
             callback()
         }
     }
@@ -277,24 +277,24 @@ var ajax = function(request) {
 // 由于typeof类型判断有种种弊端，可以借鉴jQuery.type()的方式
 //关于typeof的用法和弊端见下
 //http://bonsaiden.github.io/JavaScript-Garden/zh/#types.typeof
-var newTypeOf = function(obj) {
-    var class2type = {};
-    var allType = "Boolean,Number,String,Function,Array,Date,RegExp,Object,Error"
+var newTypeOf = function (obj) {
+    var class2type = {}
+    var allType = 'Boolean,Number,String,Function,Array,Date,RegExp,Object,Error'
     // forEach() 方法对数组的每个元素执行一次提供的函数。
-    allType.split(",").forEach(function(e, i) {
-        class2type["[object " + e + "]"] = e.toLowerCase();
+    allType.split(',').forEach(function (e, i) {
+        class2type['[object ' + e + ']'] = e.toLowerCase()
     })
     if (obj == null) {
-        return String(obj);
+        return String(obj)
     }
-    return typeof obj === "object" || typeof obj === "function" ? class2type[class2type.toString.call(obj)] || "object" : typeof obj;
+    return typeof obj === 'object' || typeof obj === 'function' ? class2type[class2type.toString.call(obj)] || 'object' : typeof obj
 }
 
 // 判断有多少个字符串里面含有某字符的数量，
 // 1.拆分多个，比如ss有多个字符。ss = '22'
 // 2.判断非字符串，比如数字，其没有length和slice方法，因此将其类型转换成string
 
-var hasStrNum = function(bs, ss) {
+var hasStrNum = function (bs, ss) {
     // 类型判断，
     var bsType = (newTypeOf(bs) != 'string')
     var ssType = (newTypeOf(ss) != 'string')
@@ -329,7 +329,7 @@ var hasStrNum = function(bs, ss) {
 
 // 整数、有两位小数，
 // 输入限制，取代正则。
-var is_digit = function(s) {
+var is_digit = function (s) {
     var numbers = '0123456789.'
     var emptyStr = ''
     for (var i = 0; i < s.length; i++) {
@@ -357,8 +357,8 @@ var is_digit = function(s) {
 
 // 延时函数的另一种写法，
 // 不可以直接调用f，因为其内部存在调用信息。
-var setTimeRun = function(start, end, delayTime) {
-    var f = function() {
+var setTimeRun = function (start, end, delayTime) {
+    var f = function () {
         console.log(start, 'start的数字')
         start++
         if (start <= end) {
@@ -374,17 +374,17 @@ var setTimeRun = function(start, end, delayTime) {
 // 不过我们可以使用一种暴力的方法来清除所有的定时器。
 // 由于 ID 会随着定时器被调用的增加而增加，
 // 因此可以记录下最大的 ID 并一起清除。
-var clearAllTimeout = function() {
+var clearAllTimeout = function () {
     // 先调用一个setTimeout，记录TimeoutId的最大值biggestTimeoutId
-    var biggestTimeoutId = window.setTimeout(function() {}, 1)
+    var biggestTimeoutId = window.setTimeout(function () {}, 1)
     for (var i = 1; i < biggestTimeoutId; i++) {
-        clearTimeout(i);
+        clearTimeout(i)
     }
 }
 
 //
 //将两个数组打包成object
-var zipObj = function(keys, values) {
+var zipObj = function (keys, values) {
     var index = 0
     // 取两个数组中长度的最小值
     var len = Math.min(keys.length, values.length)
@@ -402,7 +402,7 @@ var zipObj = function(keys, values) {
 // {q: 1, d: 2}
 
 // 数组去重
-var uniArr = function(arr) {
+var uniArr = function (arr) {
     //临时数组
     var n = []
     for (var i = 0; i < arr.length; i++) {
@@ -422,22 +422,21 @@ var uniArr = function(arr) {
 // 列表排序
 
 // 比较函数，先根据val是否为数字，然后根据本地排序
-var comparer = function(index) {
-    return function(a, b) {
+var comparer = function (index) {
+    return function (a, b) {
         var valA = getCellValue(a, index)
-        var valB = getCellValue(b, index);
-        return isNum(valA) && isNum(valB) ?
-            valA - valB : valA.localeCompare(valB);
-    };
+        var valB = getCellValue(b, index)
+        return isNum(valA) && isNum(valB) ? valA - valB : valA.localeCompare(valB)
+    }
 }
 
 // 获得每个row的值
-var getCellValue = function(row, index) {
-    var cell = row.querySelectorAll('td');
-    return cell[index].innerText;
+var getCellValue = function (row, index) {
+    var cell = row.querySelectorAll('td')
+    return cell[index].innerText
 }
 
-var sortTable = function(event) {
+var sortTable = function (event) {
     var index = eleIndex(event)
     var target = event.target
     var table = target.closest('table')
@@ -447,14 +446,14 @@ var sortTable = function(event) {
     for (var i = 0; i < trAll.length; i++) {
         trAllArr.push(trAll[i])
     }
-    var rows = trAllArr.sort(comparer(index));
+    var rows = trAllArr.sort(comparer(index))
     // 排序，逆序
-    this.asc = !this.asc;
+    this.asc = !this.asc
     if (!this.asc) {
-        rows = rows.reverse();
+        rows = rows.reverse()
     }
     // 删除所有tbody的子元素
-    var tbody = table.querySelector('tbody');
+    var tbody = table.querySelector('tbody')
     clearEle(tbody, 'tr')
     for (var j = 0; j < rows.length; j++) {
         appendHtml(tbody, rows[j].outerHTML)
@@ -462,24 +461,24 @@ var sortTable = function(event) {
 }
 
 // IE版本的检测
-var testIEversion = function() {
-    var win = window;
-    var doc = win.document;
-    var input = doc.createElement("input");
-
-    var ie = (function() {
+var testIEversion = function () {
+    var win = window
+    var doc = win.document
+    var input = doc.createElement('input')
+    
+    var ie = (function () {
         //"!win.ActiveXObject" is evaluated to true in IE11
-        if (win.ActiveXObject === undefined) return null;
-        if (!win.XMLHttpRequest) return 6;
-        if (!doc.querySelector) return 7;
-        if (!doc.addEventListener) return 8;
-        if (!win.atob) return 9;
+        if (win.ActiveXObject === undefined) return null
+        if (!win.XMLHttpRequest) return 6
+        if (!doc.querySelector) return 7
+        if (!doc.addEventListener) return 8
+        if (!win.atob) return 9
         //"!doc.body.dataset" is faster but the body is null when the DOM is not
         //ready. Anyway, an input tag needs to be created to check if IE is being
         //emulated
-        if (!input.dataset) return 10;
-        return 11;
-    })();
+        if (!input.dataset) return 10
+        return 11
+    })()
     return ie
 }
 //
@@ -493,41 +492,41 @@ var testIEversion = function() {
 
 // cookie相关的函数
 // 设置cookie
-var setCookie = function(cname, cvalue, exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    var expires = "expires=" + d.toGMTString();
-    document.cookie = cname + "=" + cvalue + "; " + expires;
+var setCookie = function (cname, cvalue, exdays) {
+    var d = new Date()
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000))
+    var expires = 'expires=' + d.toGMTString()
+    document.cookie = cname + '=' + cvalue + '; ' + expires
 }
 // 读取cookie
-var getCookie = function(cname) {
-    var name = cname + "=";
-    var ca = document.cookie.split(';');
+var getCookie = function (cname) {
+    var name = cname + '='
+    var ca = document.cookie.split(';')
     for (var i = 0; i < ca.length; i++) {
-        var c = ca[i].trim();
+        var c = ca[i].trim()
         if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
+            return c.substring(name.length, c.length)
         }
     }
-    return "";
+    return ''
 }
 // 检查cookie， username是设置的key值。
 var checkCookie = function (username) {
     username = getCookie(username)
-    if (username != null && username != "") {
+    if (username != null && username != '') {
         alert('Welcome again ' + username + '!')
     } else {
-        username = prompt('Please enter your name:', "")
-        if (username != null && username != "") {
+        username = prompt('Please enter your name:', '')
+        if (username != null && username != '') {
             setCookie(username, username, 365)
         }
     }
 }
 var hoverToggle = function (element, className) {
-    element.addEventListener('mouseover', function(){
+    element.addEventListener('mouseover', function () {
         element.classList.remove(className)
     })
-    element.addEventListener('mouseout', function(){
+    element.addEventListener('mouseout', function () {
         element.classList.add(className)
     })
 }

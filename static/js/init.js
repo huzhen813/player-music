@@ -1,7 +1,6 @@
-
 var addMusicList = function () {
     for (var i = 0; i < musicList.length; i++) {
-    	var m = musicList[i]
+        var m = musicList[i]
         var name = m.name
         var artist = m.artist
         var album = m.album
@@ -9,8 +8,9 @@ var addMusicList = function () {
             `
             <tr class="play-list-song">
 	            <td class='likes'>
-		            <img src="icon/like.png" class="icon-like hidden">
-		            <img src="icon/unlike.png" class="icon-unlike">
+	                <i class="iconfont icon-like">&#xe666;</i>
+		            <!--<img src="icon/like.png" class="icon-like hidden">-->
+		            <!--<img src="icon/unlike.png" class="icon-unlike">-->
 		        </td>
                 <td class="song-name">${name}</td>
                 <td class="song-artist">${artist}</td>
@@ -21,7 +21,7 @@ var addMusicList = function () {
     }
 }
 
-var initHtml =function () {
+var initHtml = function () {
     addMusicList()
     songName = dqs('.song-name')
     songArtist = dqs('.song-artist')
