@@ -54,6 +54,9 @@
 	margin-left: -150px;
 }
 
+.icon-search {
+	color: lightblue;
+}
 tbody {
 	position: absolute;
 	top: 29px;
@@ -367,16 +370,15 @@ thead {
 }
 
 .icon-like, .icon-unlike {
-	font-size: 16px;
-	width: 16px;
-	height: 16px;
+	color: lightgray;
+	font-size: 20px;
 	position: absolute;
 	left: 2%;
 }
 
 .likes {
 	position: relative;
-	top: -8px;
+	top: -10px;
 	left: 8px;
 }
 
