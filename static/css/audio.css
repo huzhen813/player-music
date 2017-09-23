@@ -209,7 +209,7 @@ thead {
 	left: 400px;
 }
 
-#id-icon-play, #id-icon-pause, #id-icon-play-pre, #id-icon-singlecircle, #id-icon-play-next, #id-icon-volume, #id-icon-listcircle, #id-icon-volume-mute {
+#id-icon-play, #id-icon-pause, #id-icon-play-pre, #id-icon-singlecircle, #id-icon-play-next, #id-icon-volume, .icon-mode, #id-icon-volume-mute {
 	position: absolute;
 	display: inline-block;
 	width: 30px;
@@ -226,12 +226,7 @@ thead {
 	right: 100px;
 }
 
-#id-icon-listcircle {
-	bottom: 10px;
-	right: 303px;
-}
-
-#id-icon-singlecircle {
+.icon-mode {
 	bottom: 10px;
 	right: 303px;
 }
@@ -256,6 +251,17 @@ thead {
 	right: 150px;
 }
 
+ol.play-mode {
+	position: relative;
+	right: -115px;
+	z-index: 1000;
+	background: rgba(77, 151, 155, 0.3);
+	width: 30px;
+	bottom: 50px;
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+}
 #id-total-volume, #id-current-volume {
 	display: inline-block;
 	height: 3px;

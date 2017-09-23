@@ -53,8 +53,13 @@
 	            <i id="id-icon-play-next" class="iconfont">&#xe652;</i>
 	            <i id="id-icon-volume" class="icon-volume iconfont">&#xe653;</i>
 	            <i id="id-icon-volume-mute" class="hidden icon-volume iconfont">&#xe61e;</i>
-	            <i id="id-icon-listcircle" class="icon-circle iconfont">&#xe657;</i>
-	            <i id="id-icon-singlecircle" class="hidden icon-circle iconfont">&#xe656;</i>
+	            <ol class="play-mode none">
+		            <li class="icon-circle iconfont" data-value="loop">&#xe656;</li>
+		            <li class="icon-circle iconfont" data-value="circle">&#xe657;</li>
+		            <li class="icon-circle iconfont" data-value="random">&#xe659;</li>
+	            </ol>
+	            <i class="icon-mode iconfont">&#xe657;</i>
+	            <!--<i id="id-icon-singlecircle" class="hidden icon-circle iconfont">&#xe656;</i>-->
                 <input type="range" id="id-volume-bar" value="10">
             </div>
         </div>

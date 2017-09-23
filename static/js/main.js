@@ -1,7 +1,7 @@
 var initialize = function () {
     initHtml()
     music.volume = 0.1
-    music.loop = false
+    mode = 1
 }
 
 var __main = function () {

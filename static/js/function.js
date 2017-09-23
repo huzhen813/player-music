@@ -8,36 +8,6 @@ var findMusicNum = function () {
     }
 }
 
-var changePlayModel = function (num) {
-
-}
-
-var findMusic = function (playMode) {
-    var mode = playMode ? playMode : 1
-    
-    var songNum = songName.length
-    var index = findMusicNum()
-    
-    var pastMusicIndex = (index == 0) ? 1 : (index - mode ) % songNum
-    var nextMusicIndex = (index + mode) % songNum
-    
-    var pastMusicName = songName[pastMusicIndex].innerText
-    var nextMusicName = songName[nextMusicIndex].innerText
-    var nowMusicName = songName[index].innerText
-    var nowAuthorName = songArtist[index].innerText
-    
-    var coverPath = 'cover/' + nowMusicName + '.jpg'
-    var pastCoverPath = 'cover/' + pastMusicName + '.jpg'
-    var NextCoverPath = 'cover/' + nextMusicName + '.jpg'
-    
-    informationName.innerText = nowMusicName
-    informationAuthor.innerText = nowAuthorName
-    
-    dqs('.plate-past').src = pastCoverPath
-    dqs('.plate-now').src = coverPath
-    dqs('.plate-next').src = NextCoverPath
-}
-
 var musicPlay = function () {
     addClass('hidden', '#id-icon-play')
     removeClass('hidden', '#id-icon-pause')
@@ -71,11 +41,10 @@ var listClick = function (event) {
         informationName.innerText = target.innerText
         musicCover.src = cover
         music.src = song
-        findMusic()
         musicPlay()
     }
 }
-//TODO，使用localstorage存储like的状态
+
 var likeToggle = function (event) {
     var target = event.target
     var condition = target.classList.contains('icon-like')
@@ -84,12 +53,37 @@ var likeToggle = function (event) {
     }
 }
 
+var findMusic = function () {
+    var songNum = songName.length
+    var index = findMusicNum()
+    
+    var pastMusicIndex = (index == 0) ? 1 : (index - mode ) % songNum
+    var nextMusicIndex = (index + mode) % songNum
+    
+    var pastMusicName = songName[pastMusicIndex].innerText
+    var nextMusicName = songName[nextMusicIndex].innerText
+    var nowMusicName = songName[index].innerText
+    var nowAuthorName = songArtist[index].innerText
+    
+    var coverPath = 'cover/' + nowMusicName + '.jpg'
+    var pastCoverPath = 'cover/' + pastMusicName + '.jpg'
+    var NextCoverPath = 'cover/' + nextMusicName + '.jpg'
+    
+    informationName.innerText = nowMusicName
+    informationAuthor.innerText = nowAuthorName
+    
+    dqs('.plate-past').src = pastCoverPath
+    dqs('.plate-now').src = coverPath
+    dqs('.plate-next').src = NextCoverPath
+}
+
 var changeMusic = function (direct) {
     var index = findMusicNum()
+    var songNum = songName.length
     if (direct == 'next') {
-        var index = (index + 1) % songName.length
+        var index = (index + mode) % songNum
     } else {
-        var index = (songName.length * 100 + index - 1) % songName.length
+        var index = (songNum * 100 + index - mode) % songNum
     }
     var f = songName[index].innerText
     var song = 'music/' + f + '.mp3'
@@ -109,7 +103,12 @@ var playPre = function (event) {
     changeMusic('pre')
 }
 
+var iconMode = function (event) {
+    toggleClass('none', '.play-mode')
+}
+
 var playMode = function (event) {
+    var target = event.target
     var songNum = songName.length
     var randomMode = randomBetween(0, songNum)
     var allMode = {
@@ -118,12 +117,13 @@ var playMode = function (event) {
         random: randomMode,
         order : songNum,
     }
-    // mode可以是存储在文件或者HTML的DOM中的某个值。
-    musicMode = allMode['loop']
-    toggleClass('hidden', '.icon-circle')
-    music.loop = !music.loop
+    var key = target.dataset.value
+    mode = allMode[key]
+    console.log('mode', mode)
+    dqs('.icon-mode').innerText = target.innerText
+    //music.loop = !music.loop
+    addClass('none', '.play-mode')
 }
-
 var volMute = function (event) {
     toggleClass('hidden', '.icon-volume')
     music.muted = !music.muted
